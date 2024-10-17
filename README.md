@@ -1,6 +1,6 @@
 # COS225_FinalProject
 
 Collaborators:
--Garrett Rumery (garrett.rumery@maine.edu) (0xRum)
--Kursten Massey (kursten.massey@maine.edu) (Ms-Walsbee)
--Siaka Diarra (siaka.diarra@maine.edu)
+-Garrett Rumery (0xRum)
+-Kursten Massey (Ms-Walsbee)
+-Siaka Diarra (sia)
