@@ -48,4 +48,6 @@ public class Document {
     public void setUploadTime(Date uploadTime) {
         this.uploadTime = uploadTime;
     }
+
+    // TODO: Add methods
 }
