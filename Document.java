@@ -2,29 +2,32 @@ import java.util.Date;
 
 public class Document {
     // Attributes
-    private String filename;
-    private String filetype;
+    private String fileName;
+    private String fileType;
     private double fileSize;
     private Date uploadTime;
 
     // Constructors
-    public Document(String filename, String filetype, double fileSize, Date uploadTime) {
-        this.filename = filename;
-        this.filetype = filetype;
+    public Document(String fileName, String fileType, double fileSize, Date uploadTime) {
+        this.fileName = fileName;
+        this.fileType = fileType;
         this.fileSize = fileSize;
         this.uploadTime = uploadTime;
     }
 
     // TODO: Implement Getters and Setters
-    public String getFilename() {
-        return filename;
+    public String getFileName() {
+        return fileName;
     }
-    public String getFiletype() {
-        return filetype;
+
+    public String getFileType() {
+        return fileType;
     }
+
     public double getFileSize() {
         return fileSize;
     }
+
     public Date getUploadTime() {
         return uploadTime;
     }
