@@ -15,7 +15,7 @@ public class Document {
         this.uploadTime = uploadTime;
     }
 
-    // TODO: Implement Getters and Setters
+    // Getters
     public String getFileName() {
         return fileName;
     }
@@ -30,5 +30,22 @@ public class Document {
 
     public Date getUploadTime() {
         return uploadTime;
+    }
+
+    // Setters
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public void setFileSize(double fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public void setUploadTime(Date uploadTime) {
+        this.uploadTime = uploadTime;
     }
 }
