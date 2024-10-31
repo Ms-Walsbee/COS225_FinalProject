@@ -15,5 +15,17 @@ public class Document {
         this.uploadTime = uploadTime;
     }
 
-    //TODO: Implement Getters and Setters
+    // TODO: Implement Getters and Setters
+    public String getFilename() {
+        return filename;
+    }
+    public String getFiletype() {
+        return filetype;
+    }
+    public double getFileSize() {
+        return fileSize;
+    }
+    public Date getUploadTime() {
+        return uploadTime;
+    }
 }
