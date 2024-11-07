@@ -10,16 +10,25 @@ public class DocumentUploader {
     private String fileFormat;
     private String fileContent;
     private String fileName;
-    private String fileType;
     private double fileSize;
     private Date uploadTime;
+    private String errorMessage;
+
+    // Supported formats
+    private static final List<String> supportedFormats = Arrays.asList("pdf", "docx");
 
     // Constructors
-    public DocumentUploader(String fileName, String fileType, double fileSize, Date uploadTime) {
-        this.fileName = fileName;
-        this.fileType = fileType;
-        this.fileSize = fileSize;
-        this.uploadTime = uploadTime;
+    public DocumentUploader(String filePath) {
+        this.filePath = filePath;
+        this.fileName = new File(filePath).getName();
+        this.fileSize = new File(filePath).length();
+        this.fileFormat = getFileExtension(fileName);
+        this.uploadTime = new Date();
+
+        if (!supportedFormats.contains(fileFormat.toLowerCase())) {
+            errorMessage = "Unsupported Format: " + fileFormat;
+            System.out.println("Error: " + errorMessage);
+        }
     }
 
     // Getters
