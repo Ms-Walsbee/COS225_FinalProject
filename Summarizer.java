@@ -16,7 +16,20 @@ public class Summarizer{
     this.sentenceRankings = sentenceRankings;
     }
 
+    //Getters
     public String getsummary(){
         return summary;
+    }
+
+    public int getsummaryLength(){
+        return summaryLength;
+    }
+
+    public Map<String,Double> gettdfifScores(){
+        return tdfifScores;
+    }
+
+    public Map<String,Double> getsentenceRankings(){
+        return sentenceRankings;
     }
 }
