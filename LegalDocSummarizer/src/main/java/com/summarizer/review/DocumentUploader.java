@@ -1,3 +1,5 @@
+package com.summarizer.review;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -31,39 +33,6 @@ public class DocumentUploader {
         }
     }
 
-    // Getters
-    public String getFileName() {
-        return fileName;
-    }
+    // ToDo add Getters/Setters
 
-    public String getFileType() {
-        return fileType;
-    }
-
-    public double getFileSize() {
-        return fileSize;
-    }
-
-    public Date getUploadTime() {
-        return uploadTime;
-    }
-
-    // Setters
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
-    public void setFileSize(double fileSize) {
-        this.fileSize = fileSize;
-    }
-
-    public void setUploadTime(Date uploadTime) {
-        this.uploadTime = uploadTime;
-    }
-
-    // TODO: Add methods
 }
