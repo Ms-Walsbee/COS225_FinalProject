@@ -34,5 +34,27 @@ public class DocumentUploader {
     }
 
     // ToDo add Getters/Setters
+    public String getFileContent() {
+        return fileContent;
+    }
 
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public String getFileFormat() {
+        return fileFormat;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public double getFileSize() {
+        return fileSize;
+    }
+
+    public Date getUploadTime() {
+        return uploadTime;
+    }
 }
