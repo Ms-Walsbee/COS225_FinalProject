@@ -55,7 +55,11 @@ public class DocumentUploader {
         return "DOCX Content";
     }
 
-    // helper method to get the file extension
+    // helper method to get the file extension to check or handle files based on the
+    // type.
+    // to extract the file extension (the part after the last dot in the filename),
+    // finds the position of the last dot.example: report.docx dot positon is at
+    // lastIndexOf=4 so fileName.substring(4 + 1)starts at index 5 returning docx
     private String getFileExtension(String fileName) {
         int lastIndexOf = fileName.lastIndexOf(".");
         return lastIndexOf == -1 ? "" : fileName.substring(lastIndexOf + 1);
