@@ -42,5 +42,27 @@ public class TextProcessor {
         return documentID;
     }
 
- 
+    // Methods for document processing
+    public void processDocument(String documentContent) {
+        setStatus("Processing");
+        try {
+            String cleanedText = cleanText(documentContent);
+            setPreprocessText(cleanedText);
+            String summary = generateSummary(cleanedText);
+            setSummary(summary);
+            setStatus("Completed");
+        } catch (Exception e) {
+            setStatus("Error");
+            System.out.println("Error processing document: " + e.getMessage());
+        }
+    }
+
+    private String cleanText(String text) {
+        return text.replaceAll("\\W", " ").toLowerCase();
+    }
+
+    private String generateSummary(String text) {
+        return text.length() > 100 ? text.substring(0, 100) + "..." : text;
+    }
 }
+
