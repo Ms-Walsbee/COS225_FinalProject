@@ -32,4 +32,8 @@ public class Summarizer{
     public Map<String,Double> getsentenceRankings(){
         return sentenceRankings;
     }
+
+    //Setters
+    
+
 }
