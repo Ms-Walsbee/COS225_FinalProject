@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.Map;
 
 public class Summarizer{
@@ -17,11 +16,11 @@ public class Summarizer{
     }
 
     //Getters
-    public String getsummary(){
+    public String getSummary(){
         return summary;
     }
 
-    public int getsummaryLength(){
+    public int getSummaryLength(){
         return summaryLength;
     }
 
@@ -29,11 +28,24 @@ public class Summarizer{
         return tdfifScores;
     }
 
-    public Map<String,Double> getsentenceRankings(){
+    public Map<String,Double> getSentenceRankings(){
         return sentenceRankings;
     }
 
     //Setters
-    
+    public void setSummary(String summary){
 
+    }
+
+    public void setSummaryLength(int summaryLength){
+
+    }
+
+    public void settdfifScores(Map<String,Double> tdfifScores){
+
+    }
+
+    public void setGetSentenceRankings(Map<String,Double> sentenceRankings){
+
+    }
 }
