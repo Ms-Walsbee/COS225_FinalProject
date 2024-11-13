@@ -50,7 +50,7 @@ public class Summarizer{
 
     }
 
-    public void setGetSentenceRankings(Map<String,Double> sentenceRankings){
+    public void setSentenceRankings(Map<String,Double> sentenceRankings){
 
     }
 
