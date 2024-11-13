@@ -1,3 +1,5 @@
+package com.summarizer.review;
+
 import java.util.Date;
 
 public class Document {
