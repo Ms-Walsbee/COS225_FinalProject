@@ -1,4 +1,4 @@
-package LegalDocSummarizer.src.main.java.com.summarizer.review;
+package com.summarizer.review;
 
 import java.util.Date;
 
