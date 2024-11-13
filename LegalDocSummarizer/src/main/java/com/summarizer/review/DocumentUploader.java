@@ -1,4 +1,4 @@
-package com.summarizer.review;
+package LegalDocSummarizer.src.main.java.com.summarizer.review;
 
 import java.io.File;
 import java.io.IOException;
