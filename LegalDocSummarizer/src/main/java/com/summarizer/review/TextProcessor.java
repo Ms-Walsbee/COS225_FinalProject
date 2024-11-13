@@ -1,3 +1,5 @@
+package com.summarizer.review;
+
 public class TextProcessor {
     // Attributes
     private String status;            // Current status of the document processing
