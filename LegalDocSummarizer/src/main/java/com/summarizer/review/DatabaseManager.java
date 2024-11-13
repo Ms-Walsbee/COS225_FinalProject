@@ -14,14 +14,6 @@ public class DatabaseManager {
     private Date lastUpdated;
     private int documentID; 
 
-    //Constructors
-    public DatabaseManager(String summaries, String userSummaries, Date lastUpdated, int documentID){
-        this.summaries = summaries;
-        this.userSummaries = userSummaries;
-        this.lastUpdated = lastUpdated;
-        this.documentID = documentID;
-    }
-
     //Getters
     public String getSummaries(){
         return summaries;
