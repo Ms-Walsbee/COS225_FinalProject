@@ -14,11 +14,39 @@ public class DatabaseManager {
     private Date lastUpdated;
     private int documentID; 
 
-    //Setters
-
-
     //Getters
+    public String getSummaries(){
+        return summaries;
+    }
 
+    public String getUserSummaries(){
+        return userSummaries;
+    }
+
+    public Date getLastUpdated(){
+        return lastUpdated;
+    }
+
+    public int getDocumentID(){
+        return documentID;
+    }
+
+    //Setters
+    public void setSummaries(String summaries){
+
+    }
+
+    public void setUserSummaries(String usersummaries){
+
+    }
+
+    public void setLastUpdated(Date lastUpdated){
+
+    }
+
+    public void setDocumentID(int documentID){
+
+    }
     
     //Methods
 
