@@ -11,7 +11,7 @@ public class DatabaseManager {
 
     // Connection String
     public DatabaseManager(String dbName, String collectionName) {
-        this.connectionString = "mongodb+srv://garrettrumery:<password>@cos225.mu6h5.mongodb.net/?retryWrites=true&w=majority&appName=COS225";
+        this.connectionString = "mongodb+srv://garrettrumery:Cos225group7@cos225.mu6h5.mongodb.net/?retryWrites=true&w=majority&appName=COS225";
         this.databaseName = dbName;
         this.collectionName = collectionName;
     }
