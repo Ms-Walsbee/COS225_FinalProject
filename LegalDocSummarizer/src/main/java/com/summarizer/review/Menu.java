@@ -1,5 +1,7 @@
 package com.summarizer.review;
 
+import java.util.Scanner;
+
 public class Menu {
 
     public void startUp() {
@@ -23,5 +25,24 @@ public class Menu {
         System.out.println("4. Exit.");
 
         System.out.print("Enter you choice: ");
+        try (Scanner scanner = new Scanner(System.in)) {
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    // upload document
+                    break;
+                case 2:
+                    // generate summary
+                    break;
+                case 3:
+                    // retrieve summary from database
+                    break;
+                case 4:
+                    // exit
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
     }
 }
