@@ -5,8 +5,4 @@ Collaborators:
 -Kursten Massey (Ms-Walsbee)
 -Siaka Diarra (sia)
 
-4 Main Branches:
--feature/document-upload
--feature/text-preprocessing
--feature/text-summarization
--feature/database-integration
+Classes(who created/worked on it): DatabaseManager(Kursten), Document(Kursten), DocumentUploader(Garrett), Menu(Garrett), Summarizer (Kursten), TextProcessor(Siaka)
