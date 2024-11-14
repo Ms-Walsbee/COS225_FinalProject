@@ -1,11 +1,11 @@
-package LegalDocSummarizer.src.main.java.com.summarizer.review;
+package com.summarizer.review;
 
 public class TextProcessor {
     // Attributes
-    private String status;            // Current status of the document processing
-    private String preprocessText;    // Stores cleaned text
-    private String summary;           // Stores generated summary
-    private int documentID;           // Unique identifier for the document
+    private String status; // Current status of the document processing
+    private String preprocessText; // Stores cleaned text
+    private String summary; // Stores generated summary
+    private int documentID; // Unique identifier for the document
 
     // Constructor
     public TextProcessor(int documentID) {
@@ -67,4 +67,3 @@ public class TextProcessor {
         return text.length() > 100 ? text.substring(0, 100) + "..." : text;
     }
 }
-
