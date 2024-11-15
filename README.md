@@ -5,4 +5,4 @@ Collaborators:
 -Kursten Massey (Ms-Walsbee)
 -Siaka Diarra (sia)
 
-Classes(who created/worked on it): DatabaseManager(Kursten), Document(Kursten), DocumentUploader(Garrett), Menu(Garrett), Summarizer (Kursten), TextProcessor(Siaka)
+Classes: DatabaseManager, Document, DocumentUploader, Menu, Summarizer, TextProcessor

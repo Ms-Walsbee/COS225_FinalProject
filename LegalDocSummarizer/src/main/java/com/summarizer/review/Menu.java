@@ -23,15 +23,13 @@ public class Menu {
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(delimiter);
-                // String id = values[0];
+                Float id = Float.parseFloat(values[values.length - 2]);
                 String title = values[1];
-                String authors = values[2]; // switch from string to a list of authors
-                // String abstract = values[3];
-                // String categories = values[4];
+
                 // Add more values to the reader.
 
                 // upload document to database
-                DocumentUploader documentUploader = new DocumentUploader(title, authors);
+                DocumentUploader documentUploader = new DocumentUploader(id, title, authors, overview, categories);
                 databaseManager.addToDatabase(documentUploader.getDocument());
             }
         } catch (IOException e) {
@@ -40,26 +38,9 @@ public class Menu {
     }
 
     public void shutDown() {
-        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
+      DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
         databaseManager.deleteCollection();
     }
-
-    // public void addToDatabase() {
-
-    // try(Scanner scanner = new Scanner(System.in));
-    // try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-    // MongoDatabase database = mongoClient.getDatabase(databaseName);
-    // MongoCollection<Document> collection =
-    // database.getCollection(collectionName);
-
-    // collection.insertOne(document);
-
-    // System.out.println("Document added to the database successfully!");
-    // } catch (Exception e) {
-    // System.out.println("An error occurred while adding the document to the
-    // database: " + e.getMessage());
-    // }
-    // }
 
     public static void main(String[] args) {
         System.out.println("Starting the Legal Doc Summarizer..");
