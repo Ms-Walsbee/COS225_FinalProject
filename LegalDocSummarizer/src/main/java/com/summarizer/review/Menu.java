@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 public class Menu {
 
@@ -23,12 +25,13 @@ public class Menu {
                 // String id = values[0];
                 String title = values[1];
                 String authors = values[2];
+                Date publicationDate = values[3]; //Keeps giving me errors about parsing the date format
                 // String abstract = values[3];
                 // String categories = values[4];
                 // Add more values to the reader.
 
                 // upload document to database
-                DocumentUploader documentUploader = new DocumentUploader(title, authors);
+                DocumentUploader documentUploader = new DocumentUploader(title, authors, publicationDate);
                 databaseManager.addToDatabase(documentUploader.getDocument());
             }
         } catch (IOException e) {
