@@ -18,6 +18,7 @@ public class DocumentUploader {
         Document document = new Document();
         document.append("title", title);
         document.append("authors", authors);
+        // add document appends for abstract, categories.
         return document;
     }
 }
