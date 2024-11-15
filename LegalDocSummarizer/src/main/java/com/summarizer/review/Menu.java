@@ -20,15 +20,13 @@ public class Menu {
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(delimiter);
-                // String id = values[0];
+                Float id = Float.parseFloat(values[values.length - 2]);
                 String title = values[1];
-                String authors = values[2]; // switch from string to a list of authors
-                // String abstract = values[3];
-                // String categories = values[4];
+
                 // Add more values to the reader.
 
                 // upload document to database
-                DocumentUploader documentUploader = new DocumentUploader(title, authors);
+                DocumentUploader documentUploader = new DocumentUploader(id, title, authors, overview, categories);
                 databaseManager.addToDatabase(documentUploader.getDocument());
             }
         } catch (IOException e) {
@@ -37,8 +35,10 @@ public class Menu {
     }
 
     public void shutDown() {
-        // databaseManager.deleteCollection("LegalDocSummarizer");
+        //databaseManager.deleteCollection("LegalDocSummarizer");
     }
+
+    
 
     public static void main(String[] args) {
         System.out.println("Starting the Legal Doc Summarizer..");
