@@ -4,7 +4,6 @@ import org.bson.Document;
 
 public class DocumentUploader {
     // Attributes
-    private Float id;
     private String title;
     private String authors;
     private String overview;
@@ -13,8 +12,7 @@ public class DocumentUploader {
     // add more attributes here
 
     // Constructors/initialization for file details and checking formats
-    public DocumentUploader(Float id, String title, String authors, String overview, String categories) {
-        this.id = id;
+    public DocumentUploader(String title, String authors, String overview, String categories) {
         this.title = title;
         this.authors = authors;
         this.overview = overview;
@@ -23,7 +21,6 @@ public class DocumentUploader {
 
     public Document getDocument() {
         Document document = new Document();
-        document.append("id", id);
         document.append("title", title);
         document.append("authors", authors);
         document.append("overview", overview);

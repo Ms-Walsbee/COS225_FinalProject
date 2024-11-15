@@ -23,7 +23,7 @@ public class Menu {
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(delimiter);
-                Float id = Float.parseFloat(values[values.length - 2]);
+                // Float id = Float.parseFloat(values[values.length - 5]);
                 String title = values[1];
                 String authors = values[2];
                 String overview = values[3];
@@ -32,7 +32,7 @@ public class Menu {
                 // Add more values to the reader.
 
                 // upload document to database
-                DocumentUploader documentUploader = new DocumentUploader(id, title, authors, overview, categories);
+                DocumentUploader documentUploader = new DocumentUploader(title, authors, overview, categories);
                 databaseManager.addToDatabase(documentUploader.getDocument());
             }
         } catch (IOException e) {
@@ -59,10 +59,9 @@ public class Menu {
         System.out.println("2. Generate summary of a document.");
         System.out.println("3. Retrieve past summary from the database.");
         System.out.println("4. Display overview of a document.");
-        System.out.println("5. Display dates of a document.");
-        System.out.println("6. Display authors of a document.");
-        System.out.println("7. Display categories of a document.");
-        System.out.println("8. Exit.");
+        System.out.println("5. Display authors of a document.");
+        System.out.println("6. Display categories of a document.");
+        System.out.println("7. Exit.");
 
         System.out.print("Enter you choice: ");
         try (Scanner scanner = new Scanner(System.in)) {
@@ -84,8 +83,12 @@ public class Menu {
                     // display abstract of a document
                     // displayAbstract();
                     break;
-
                 case 5:
+
+                    break; //
+                case 6:
+                    break;
+                case 7:
                     // exit
                     System.out.println("Exiting the summarizer...");
                     menu.shutDown();
