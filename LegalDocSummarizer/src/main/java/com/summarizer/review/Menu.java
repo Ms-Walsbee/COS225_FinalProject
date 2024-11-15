@@ -41,7 +41,7 @@ public class Menu {
     }
 
     public void shutDown() {
-      DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
+        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
         databaseManager.deleteCollection();
     }
 
@@ -58,8 +58,11 @@ public class Menu {
         // System.out.println("1. Upload legal document.");
         System.out.println("2. Generate summary of a document.");
         System.out.println("3. Retrieve past summary from the database.");
-        System.out.println("4. Display abstract of a document.");
-        System.out.println("5. Exit.");
+        System.out.println("4. Display overview of a document.");
+        System.out.println("5. Display dates of a document.");
+        System.out.println("6. Display authors of a document.");
+        System.out.println("7. Display categories of a document.");
+        System.out.println("8. Exit.");
 
         System.out.print("Enter you choice: ");
         try (Scanner scanner = new Scanner(System.in)) {
@@ -85,7 +88,7 @@ public class Menu {
                 case 5:
                     // exit
                     System.out.println("Exiting the summarizer...");
-                    // shutdown();
+                    menu.shutDown();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
