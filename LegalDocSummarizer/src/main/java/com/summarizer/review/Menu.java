@@ -22,9 +22,7 @@ public class Menu {
                 String[] values = line.split(delimiter);
                 Float id = Float.parseFloat(values[values.length - 2]);
                 String title = values[1];
-                String authors = values[2];
-                String overview = values[3];
-                String categories = values[4];
+
                 // Add more values to the reader.
 
                 // upload document to database
