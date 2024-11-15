@@ -69,4 +69,12 @@ public class DatabaseManager {
 
     public Document getDocumentByTitle(String title) {
         // Use a try-with-resources statement to ensure the MongoClient is closed automatically
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            // Connect to the specified database
+            MongoDatabase database = mongoClient.getDatabase(databaseName);
+            
+            // Access the specified collection within the database
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+
+
 
