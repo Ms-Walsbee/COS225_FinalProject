@@ -16,13 +16,6 @@ public class DatabaseManager {
         this.collectionName = collectionName;
     }
 
-    // Constructor with custom connection string
-    public DatabaseManager(String connectionString, String dbName, String collectionName) {
-        this.connectionString = connectionString;
-        this.databaseName = dbName;
-        this.collectionName = collectionName;
-    }
-
     // Add a Document to the database collection
     public void addToDatabase(Document document) {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
