@@ -73,6 +73,11 @@ public class Menu {
                     // retrieveSummary();
                     break;
                 case 4:
+                    // display abstract of a document
+                    // displayAbstract();
+                    break;
+
+                case 5:
                     // exit
                     System.out.println("Exiting the summarizer...");
                     // shutdown();
