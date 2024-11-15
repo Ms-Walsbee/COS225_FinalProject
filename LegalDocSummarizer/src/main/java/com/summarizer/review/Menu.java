@@ -53,7 +53,8 @@ public class Menu {
         System.out.println("1. Upload legal document.");
         System.out.println("2. Generate summary of a document.");
         System.out.println("3. Retrieve past summary from the database.");
-        System.out.println("4. Exit.");
+        System.out.println("4. Display abstract of a document.");
+        System.out.println("5. Exit.");
 
         System.out.print("Enter you choice: ");
         try (Scanner scanner = new Scanner(System.in)) {
@@ -72,6 +73,11 @@ public class Menu {
                     // retrieveSummary();
                     break;
                 case 4:
+                    // display abstract of a document
+                    // displayAbstract();
+                    break;
+
+                case 5:
                     // exit
                     System.out.println("Exiting the summarizer...");
                     // shutdown();
