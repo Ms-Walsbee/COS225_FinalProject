@@ -26,6 +26,8 @@ public class DocumentUploader {
         document.append("id", id);
         document.append("title", title);
         document.append("authors", authors);
+        document.append("overview", overview);
+        document.append("categories", categories);
 
         return document;
     }
