@@ -66,4 +66,7 @@ public class DatabaseManager {
             System.out.println("All documents deleted successfully!");
         }
     }
-}
+
+    public Document getDocumentByTitle(String title) {
+        // Use a try-with-resources statement to ensure the MongoClient is closed automatically
+
