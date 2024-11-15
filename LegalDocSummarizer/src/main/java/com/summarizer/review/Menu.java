@@ -22,7 +22,7 @@ public class Menu {
                 String[] values = line.split(delimiter);
                 // String id = values[0];
                 String title = values[1];
-                String authors = values[2];
+                String authors = values[2]; // switch from string to a list of authors
                 // String abstract = values[3];
                 // String categories = values[4];
                 // Add more values to the reader.
