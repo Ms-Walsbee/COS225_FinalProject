@@ -76,5 +76,19 @@ public class DatabaseManager {
             // Access the specified collection within the database
             MongoCollection<Document> collection = database.getCollection(collectionName);
 
+            // Create a query to find a document with the specified title
+            Document query = new Document("title", title);
+            
+            // Execute the query and return the first matching document
+            return collection.find(query).first();
+        } catch (Exception e) {
+            // Print an error message if an exception occurs during the database operation
+            System.out.println("An error occurred while retrieving the document: " + e.getMessage());
+            
+            // Return null if the document could not be retrieved
+            return null;
+        }
+    }
 
+}
 
