@@ -6,6 +6,7 @@ public class DocumentUploader {
     // Attributes
     private String title;
     private String authors;
+    // add more attributes here
 
     // Constructors/initialization for file details and checking formats
     public DocumentUploader(String title, String authors) {
