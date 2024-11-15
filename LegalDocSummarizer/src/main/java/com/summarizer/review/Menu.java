@@ -1,9 +1,12 @@
 package com.summarizer.review;
 
-import java.util.Scanner;
+import com.summarizer.review.DatabaseManager;
+import com.summarizer.review.DocumentUploader;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Menu {
 
@@ -13,7 +16,7 @@ public class Menu {
         databaseManager.createCollection();
 
         // Parse documentsMetaData.csv
-        String csvFile = "src/main/resources/documentsMetaData.csv";
+        String csvFile = "src/main/resources/documentsMetaData1.csv";
         String line;
         String delimiter = "#";
         // Parse the documents
@@ -37,8 +40,26 @@ public class Menu {
     }
 
     public void shutDown() {
-        // databaseManager.deleteCollection("LegalDocSummarizer");
+        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
+        databaseManager.deleteCollection();
     }
+
+    // public void addToDatabase() {
+
+    // try(Scanner scanner = new Scanner(System.in));
+    // try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+    // MongoDatabase database = mongoClient.getDatabase(databaseName);
+    // MongoCollection<Document> collection =
+    // database.getCollection(collectionName);
+
+    // collection.insertOne(document);
+
+    // System.out.println("Document added to the database successfully!");
+    // } catch (Exception e) {
+    // System.out.println("An error occurred while adding the document to the
+    // database: " + e.getMessage());
+    // }
+    // }
 
     public static void main(String[] args) {
         System.out.println("Starting the Legal Doc Summarizer..");
@@ -50,7 +71,7 @@ public class Menu {
 
         System.out.println("Please select one of the following options: ");
 
-        System.out.println("1. Upload legal document.");
+        // System.out.println("1. Upload legal document.");
         System.out.println("2. Generate summary of a document.");
         System.out.println("3. Retrieve past summary from the database.");
         System.out.println("4. Display abstract of a document.");
