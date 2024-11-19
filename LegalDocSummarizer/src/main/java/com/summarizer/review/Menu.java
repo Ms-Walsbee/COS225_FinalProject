@@ -16,7 +16,9 @@ public class Menu {
         databaseManager.createCollection();
 
         // Parse documentsMetaData.csv
-        String csvFile = "src/main/resources/documentsMetaData1.csv";
+        String csvFile = "src/main/resources/documentsMetaData1.csv"; // this is a smaller document, we need to use te
+                                                                      // larger file after we figure out how to stop
+                                                                      // adding all the documents to the database first
         String line;
         String delimiter = "#";
         // Parse the documents
