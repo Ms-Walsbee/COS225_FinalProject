@@ -6,6 +6,7 @@ Collaborators:
 -Siaka Diarra (sia)
 
 Classes: DatabaseManager, Document, DocumentUploader, & Menu
+
 Extra: Summarizer, TextProcessor (not in use currently, will only be used if we go forward with extra features)
 
 Resources:
