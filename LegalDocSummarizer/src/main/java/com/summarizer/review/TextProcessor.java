@@ -50,8 +50,8 @@ public class TextProcessor {
         try {
             String cleanedText = cleanText(documentContent);
             setPreprocessText(cleanedText);
-            String summary = generateSummary(cleanedText);
-            setSummary(summary);
+
+
             setStatus("Completed");
         } catch (Exception e) {
             setStatus("Error");
@@ -63,7 +63,4 @@ public class TextProcessor {
         return text.replaceAll("\\W", " ").toLowerCase();
     }
 
-    private String generateSummary(String text) {
-        return text.length() > 100 ? text.substring(0, 100) + "..." : text;
-    }
 }
