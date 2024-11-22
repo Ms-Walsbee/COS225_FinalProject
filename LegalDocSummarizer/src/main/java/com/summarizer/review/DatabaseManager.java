@@ -1,5 +1,6 @@
 package com.summarizer.review;
 
+import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -17,16 +18,17 @@ public class DatabaseManager {
     }
 
     // Add a Document to the database collection
-    public void addToDatabase(Document document) {
+    public InsertOneResult addToDatabase(Document document) {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase(databaseName);
             MongoCollection<Document> collection = database.getCollection(collectionName);
 
-            collection.insertOne(document);
+            return collection.insertOne(document);
 
-            System.out.println("Document added to the database successfully!");
+            // System.out.println("Document added to the database successfully!");
         } catch (Exception e) {
             System.out.println("An error occurred while adding the document to the database: " + e.getMessage());
+            return null;
         }
     }
 
@@ -46,7 +48,7 @@ public class DatabaseManager {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase(databaseName);
             database.getCollection(collectionName).drop();
-            System.out.println("Collection deleted successfully!");
+            // System.out.println("Collection deleted successfully!");
         }
     }
 
