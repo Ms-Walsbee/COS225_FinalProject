@@ -2,6 +2,9 @@ package com.summarizer.review;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class TextProcessor {
     private Set<String> stopWords; // Set of stop words
@@ -24,9 +27,13 @@ public class TextProcessor {
     }
 
     private String[] removeStopWords(String[] arrayOfText) {
-        return Arrays.stream(arrayOfText)
-                     .filter(word -> !stopWords.contains(word))
-                     .toArray(String[]::new);
+        Set<String> words = new HashSet<>();
+        for (String word : arrayOfText) {
+            if (!stopWords.contains(word)) {
+                words.add(word);
+            }
+        }
+        return words.toArray(new String[0]);
     }
 
     private String lowerAllCases(String text) {
@@ -39,5 +46,14 @@ public class TextProcessor {
 
     private String[] tokenizeWords(String text) {
         return text.split("\\s+");
+    }
+
+    // Clean text by lowercasing, removing punctuation, and stop words
+    public String cleanText(String text) {
+        text = lowerAllCases(text);
+        text = removePunctuation(text);
+        String[] words = tokenizeWords(text);
+        words = removeStopWords(words);
+        return String.join(" ", words);
     }
 }
