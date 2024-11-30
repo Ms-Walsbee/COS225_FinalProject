@@ -1,6 +1,5 @@
 package com.summarizer.review;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,5 +27,17 @@ public class TextProcessor {
         return Arrays.stream(arrayOfText)
                      .filter(word -> !stopWords.contains(word))
                      .toArray(String[]::new);
+    }
+
+    private String lowerAllCases(String text) {
+        return text.toLowerCase();
+    }
+
+    private String removePunctuation(String text) {
+        return text.replaceAll("[^a-zA-Z0-9]", " ");
+    }
+
+    private String[] tokenizeWords(String text) {
+        return text.split("\\s+");
     }
 }
