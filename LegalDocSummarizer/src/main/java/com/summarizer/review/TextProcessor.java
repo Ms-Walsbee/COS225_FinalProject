@@ -1,8 +1,6 @@
 package com.summarizer.review;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,5 +22,11 @@ public class TextProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String[] removeStopWords(String[] arrayOfText) {
+        return Arrays.stream(arrayOfText)
+                     .filter(word -> !stopWords.contains(word))
+                     .toArray(String[]::new);
     }
 }
