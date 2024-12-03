@@ -121,23 +121,23 @@ public class Menu {
                     menu.addDocumentToDatabase(scanner);
                     break;
                 case 2:
-                    // generate summary
+                    System.out.println("Generating summary of the document....");
                     // generateSummary();
                     break;
                 case 3:
-                    // retrieve summary from database
+                    System.out.println("Retrieving past summary from the database....");
                     // retrieveSummary();
                     break;
                 case 4:
-                    // display overview of a document
+                    System.out.println("Displaying overview of the document....");
                     // displayAbstract();
                     break;
                 case 5:
-                    // display authors of a document
+                    System.out.println("Displaying authors of the document....");
                     // displayAuthors();
                     break;
                 case 6:
-                    // display categories of categories
+                    System.out.println("Displaying categories of the document....");
                     // displayCategories();
                     break;
                 case 7:
