@@ -20,12 +20,10 @@ public class DatabaseManager {
         try (BufferedReader reader = new BufferedReader(new FileReader(
                 "src/main/resources/connection.txt"))) {
             connectionString = reader.readLine();
-            System.out.println("Connection string initialized");
         } catch (IOException e) {
             System.out.println("Error reading connection string from 'connection.txt'");
             e.printStackTrace();
         }
-        ;
         this.databaseName = dbName;
         this.collectionName = collectionName;
     }
@@ -50,7 +48,7 @@ public class DatabaseManager {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase(databaseName);
             database.createCollection(collectionName);
-            System.out.println("Collection created successfully!");
+            System.out.print("Collection created successfully!");
         } catch (Exception e) {
             System.out.println("An error occurred while creating the collection: " + e.getMessage());
         }
