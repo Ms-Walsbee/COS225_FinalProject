@@ -98,11 +98,12 @@ public class Menu {
 
             System.out.println("1. Upload legal document.");
             System.out.println("2. Generate summary of a document.");
-            System.out.println("3. Retrieve past summary from the database.");
-            System.out.println("4. Display overview of a document.");
-            System.out.println("5. Display authors of a document.");
-            System.out.println("6. Display categories of a document.");
-            System.out.println("7. Exit.");
+            System.out.println("3. Retrieve past summary from the database by title.");
+            System.out.println("4. Retrieve past summary from the database by author.");
+            System.out.println("5. Display summarization of a document.");
+            System.out.println("6. Display authors of a document.");
+            System.out.println("7. Display categories of a document.");
+            System.out.println("8. Exit.");
 
             System.out.print("Enter your choice: ");
 
@@ -125,27 +126,31 @@ public class Menu {
                     // generateSummary();
                     break;
                 case 3:
-                    System.out.println("Retrieving past summary from the database....");
+                    System.out.println("Retrieving past summary from the database by title....");
                     // retrieveSummary();
                     break;
                 case 4:
-                    System.out.println("Displaying overview of the document....");
-                    // displayAbstract();
+                    System.out.println("Retrieving past summary from the database by author....");
+                    // retrieveAuthors();
                     break;
                 case 5:
-                    System.out.println("Displaying authors of the document....");
-                    // displayAuthors();
+                    System.out.println("Displaying summarization....");
+                    // displaySummary();
                     break;
                 case 6:
-                    System.out.println("Displaying categories of the document....");
-                    // displayCategories();
+                    System.out.println("Displaying authors....");
+                    // displayAuthors();
                     break;
                 case 7:
+                    System.out.println("Displaying categories....");
+                    // displayCategories();
+                case 8:
                     // exit
                     System.out.println("Exiting the summarizer...");
                     menu.shutDown();
                     scanner.close();
                     break;
+
                 default:
                     System.out.println("Invalid choice. Please try again.");
                     break;
