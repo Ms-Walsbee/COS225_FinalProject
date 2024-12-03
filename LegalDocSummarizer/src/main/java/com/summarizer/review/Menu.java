@@ -127,11 +127,11 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("Retrieving past summary from the database by title....");
-                    // retrieveSummary();
+                    // retrieveSummaryTitle();
                     break;
                 case 4:
                     System.out.println("Retrieving past summary from the database by author....");
-                    // retrieveAuthors();
+                    // retrieveSummaryAuthors();
                     break;
                 case 5:
                     System.out.println("Displaying summarization....");
