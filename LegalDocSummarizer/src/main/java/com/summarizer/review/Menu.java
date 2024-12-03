@@ -73,7 +73,7 @@ public class Menu {
             InsertOneResult result = databaseManager.addToDatabase(documentUploader.getDocument());
 
             if (result != null) {
-                System.out.println("Document successfully added to the database.");
+                System.out.println("Document successfully added to the database.\n");
             } else {
                 System.out.println("Failed to add the document to the database.");
             }
@@ -109,6 +109,7 @@ public class Menu {
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 scanner.nextLine();
+                System.out.print("\n");
             } else {
                 System.out.println("Invalid input. Please enter a number.");
                 scanner.nextLine();
@@ -133,9 +134,11 @@ public class Menu {
                     break;
                 case 5:
                     // display authors of a document
+                    // displayAuthors();
                     break;
                 case 6:
                     // display categories of categories
+                    // displayCategories();
                     break;
                 case 7:
                     // exit
