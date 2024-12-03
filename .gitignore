@@ -4,3 +4,4 @@ target/
 
 #Connection String txt file in Resources
 src/main/resources/connection.txt
+\src\main\resources\connection.txt
