@@ -1,6 +1,11 @@
 package com.summarizer.review;
 
 import com.mongodb.client.result.InsertOneResult;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.bson.Document;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -12,7 +17,15 @@ public class DatabaseManager {
 
     // Constructor with default connection string
     public DatabaseManager(String dbName, String collectionName) {
-        this.connectionString = "mongodb+srv://garrettrumery:Ju7GunR2FJrZUu6K@cluster0.mu6h5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+        try (BufferedReader reader = new BufferedReader(new FileReader(
+                "src/main/resources/connection.txt"))) {
+            connectionString = reader.readLine();
+            System.out.println("Connection string initialized");
+        } catch (IOException e) {
+            System.out.println("Error reading connection string from 'connection.txt'");
+            e.printStackTrace();
+        }
+        ;
         this.databaseName = dbName;
         this.collectionName = collectionName;
     }
