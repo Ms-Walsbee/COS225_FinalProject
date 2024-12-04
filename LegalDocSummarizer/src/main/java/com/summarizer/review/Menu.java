@@ -176,6 +176,4 @@ public class Menu {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
         // TODO: Implement this method
     }
-
-   
 }
