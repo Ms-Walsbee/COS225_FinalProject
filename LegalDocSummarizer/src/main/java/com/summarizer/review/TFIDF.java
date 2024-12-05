@@ -16,15 +16,16 @@ public class TFIDF {
         this.processor = processor;
     }
 
-    // public void addSample(BsonValue id, String text) {
-    // String[] words = processor.cleanText(text);
-    // HashMap<String, Integer> wordCount = new HashMap<>();
-    // for (String word : words) {
-    // wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
-    // vocabulary.add(word);
-    // }
-    // tf.put(id, wordCount);
-    // }
+    public void addSample(BsonValue id, String text) {
+        String cleanedText = processor.cleanText(text);
+        String[] words = cleanedText.split("\\s+");
+        HashMap<String, Integer> wordCount = new HashMap<>();
+        for (String word : words) {
+            wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
+            vocabulary.add(word);
+        }
+        tf.put(id, wordCount);
+    }
 
     public void calculateIDF() {
         for (String word : vocabulary) {
