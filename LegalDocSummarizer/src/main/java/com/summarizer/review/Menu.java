@@ -182,8 +182,6 @@ public class Menu {
         }
     }
 
-}
-
     // Displays the summary of a document from mongoDB
     private static void displaySummary() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
