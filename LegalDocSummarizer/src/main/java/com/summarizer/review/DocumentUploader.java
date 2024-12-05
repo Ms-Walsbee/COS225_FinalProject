@@ -5,7 +5,7 @@ import org.bson.Document;
 public class DocumentUploader {
     // Attributes
     private String title;
-    private String authors;
+    private String authors; // change arraylist/list
     private String overview;
     private String categories;
 

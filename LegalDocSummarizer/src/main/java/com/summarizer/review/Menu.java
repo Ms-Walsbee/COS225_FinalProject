@@ -17,7 +17,7 @@ public class Menu {
 
     public Menu() {
         this.databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
-        // this.databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
+        this.databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
     }
 
     public void startUp() {
@@ -55,9 +55,8 @@ public class Menu {
     public void shutDown() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
         databaseManager.deleteCollection();
-        // DatabaseManager databaseManager2 = new DatabaseManager("LegalDocSummarizer",
-        // "doc_data");
-        // databaseManager2.deleteCollection();
+        DatabaseManager databaseManager2 = new DatabaseManager("LegalDocSummarizer", "doc_data");
+        databaseManager2.deleteCollection();
     }
 
     public void addDocumentToDatabase(Scanner scanner) {
@@ -76,7 +75,7 @@ public class Menu {
 
         DocumentUploader documentUploader = new DocumentUploader(docTitle, docAuthors, docOverview, docCategories);
 
-        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
+        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
 
         try {
             // Now addToDatabase returns InsertOneResult
@@ -124,10 +123,9 @@ public class Menu {
             System.out.println("2. Generate summary of a document.");
             System.out.println("3. Retrieve past summary from the database by title.");
             System.out.println("4. Retrieve past summary from the database by author.");
-            System.out.println("5. Display summarization of a document.");
-            System.out.println("6. Display authors of a document.");
-            System.out.println("7. Display categories of a document.");
-            System.out.println("8. Exit.");
+            System.out.println("5. Display authors."); // display authors, choose an author to see titles.
+            System.out.println("6. Display categories."); // display categories, choose a category to see all titles.
+            System.out.println("7. Exit.");
 
             System.out.print("Enter your choice: ");
 
@@ -158,17 +156,13 @@ public class Menu {
                     // menu.retrieveSummaryByAuthor(scanner);
                     break;
                 case 5:
-                    System.out.println("Displaying summarization....");
-                    // displaySummary();
-                    break;
-                case 6:
                     System.out.println("Displaying authors....");
                     // displayAuthors();
                     break;
-                case 7:
+                case 6:
                     System.out.println("Displaying categories....");
                     // displayCategories();
-                case 8:
+                case 7:
                     // exit
                     System.out.println("Exiting the summarizer...");
                     menu.shutDown();
