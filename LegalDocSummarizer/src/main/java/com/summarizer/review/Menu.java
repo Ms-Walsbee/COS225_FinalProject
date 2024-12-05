@@ -55,8 +55,7 @@ public class Menu {
     public void shutDown() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
         databaseManager.deleteCollection();
-        DatabaseManager databaseManager2 = new DatabaseManager("LegalDocSummarizer",
-                "doc_data");
+        DatabaseManager databaseManager2 = new DatabaseManager("LegalDocSummarizer", "doc_data");
         databaseManager2.deleteCollection();
     }
 
