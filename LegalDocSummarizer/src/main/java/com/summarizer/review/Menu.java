@@ -86,6 +86,7 @@ public class Menu {
                 System.out.println("Document successfully added to the database.\n");
             } else {
                 System.out.println("Failed to add the document to the database.");
+                //
             }
         } catch (Exception e) {
             System.err.println("An error occurred while adding the document to the database: " + e.getMessage());
