@@ -5,6 +5,8 @@ import com.mongodb.client.result.InsertOneResult;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bson.Document;
 import com.mongodb.client.MongoClient;
@@ -73,7 +75,10 @@ public class DatabaseManager {
         }
     }
 
-    public Document getDocumentByTitle(String title) {
+    public List<Document> getDocumentsByTitle(String title) {
+
+        List<Document> documents = new ArrayList<>();
+
         // Use a try-with-resources statement to ensure the MongoClient is closed
         // automatically
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
@@ -85,16 +90,18 @@ public class DatabaseManager {
 
             // Create a query to find a document with the specified title
             Document query = new Document("title", title);
-
-            // Execute the query and return the first matching document
-            return collection.find(query).first();
+            Document doc = collection.find(query).first();
+            if (doc != null) {
+                documents.add(doc);
+            }
         } catch (Exception e) {
             // Print an error message if an exception occurs during the database operation
             System.out.println("An error occurred while retrieving the document: " + e.getMessage());
 
             // Return null if the document could not be retrieved
-            return null;
+            // return null;
         }
+        return documents;
     }
 
 }
