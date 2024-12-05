@@ -8,8 +8,17 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import org.bson.Document;
 
 public class Menu {
+    private DatabaseManager databaseManager;
+
+    public Menu() {
+        this.databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
+        // this.databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
+    }
 
     public void startUp() {
         // Create a collection in the database to store objects
@@ -46,7 +55,8 @@ public class Menu {
     public void shutDown() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
         databaseManager.deleteCollection();
-        DatabaseManager databaseManager2 = new DatabaseManager("LegalDocSummarizer", "doc_data");
+        DatabaseManager databaseManager2 = new DatabaseManager("LegalDocSummarizer",
+                "doc_data");
         databaseManager2.deleteCollection();
     }
 
@@ -66,7 +76,7 @@ public class Menu {
 
         DocumentUploader documentUploader = new DocumentUploader(docTitle, docAuthors, docOverview, docCategories);
 
-        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
+        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
 
         try {
             // Now addToDatabase returns InsertOneResult
@@ -81,6 +91,20 @@ public class Menu {
             System.err.println("An error occurred while adding the document to the database: " + e.getMessage());
         }
 
+    }
+
+    public void retrieveSummaryByTitle(Scanner scanner) {
+        System.out.print("Please enter the title of the document: ");
+        String title = scanner.nextLine();
+        List<Document> docs = databaseManager.getDocumentsByTitle(title);
+        if (docs.isEmpty()) {
+            System.out.println("No document found with the title.");
+        } else {
+            for (Document doc : docs) {
+                System.out.println("\nSummary for '" + title + "': " + doc.getString("overview"));
+                System.out.println();
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -127,29 +151,29 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println("Retrieving past summary from the database by title....");
-                    // retrieveSummaryTitle();
+                    menu.retrieveSummaryByTitle(scanner);
                     break;
                 case 4:
                     System.out.println("Retrieving past summary from the database by author....");
-                    // retrieveSummaryAuthors();
+                    // menu.retrieveSummaryByAuthor(scanner);
                     break;
                 case 5:
                     System.out.println("Displaying summarization....");
-                    displaySummary();
+                    // displaySummary();
                     break;
                 case 6:
                     System.out.println("Displaying authors....");
-                    displayAuthors();
+                    // displayAuthors();
                     break;
                 case 7:
                     System.out.println("Displaying categories....");
-                    displayCategories();
+                    // displayCategories();
+                    break;
                 case 8:
                     // exit
                     System.out.println("Exiting the summarizer...");
                     menu.shutDown();
-                    scanner.close();
-                    break;
+                    return;
 
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -158,20 +182,21 @@ public class Menu {
         }
     }
 
-    
-     //Displays the summary of a document from mongoDB
-     private static void displaySummary() {
+}
+
+    // Displays the summary of a document from mongoDB
+    private static void displaySummary() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
         // TODO: Implement this method
     }
 
-    //Gets the authors from mongoDG and displays them
+    // Gets the authors from mongoDG and displays them
     private static void displayAuthors() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
         // TODO: Implement this method
     }
 
-    //Gets the categories from mongoDB and displays them
+    // Gets the categories from mongoDB and displays them
     private static void displayCategories() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
         // TODO: Implement this method
