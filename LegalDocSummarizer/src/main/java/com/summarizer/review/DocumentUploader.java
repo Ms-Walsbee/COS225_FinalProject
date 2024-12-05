@@ -9,7 +9,7 @@ public class DocumentUploader {
     private String authors;
     private String overview;
     private String categories;
-    private String content; // New attribute for document content
+
 
     // Constructors/initialization for file details and checking formats
     public DocumentUploader(String title, String authors, String overview, String categories, String content) {
@@ -17,7 +17,6 @@ public class DocumentUploader {
         this.authors = authors;
         this.overview = overview;
         this.categories = categories;
-        this.content = content; // Initialize content
     }
 
     public Document getDocument() {
@@ -26,7 +25,6 @@ public class DocumentUploader {
         document.append("authors", authors);
         document.append("overview", overview);
         document.append("categories", categories);
-        document.append("content", content); // Add content to the document
 
         return document;
     }
