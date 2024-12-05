@@ -75,7 +75,7 @@ public class Menu {
 
         DocumentUploader documentUploader = new DocumentUploader(docTitle, docAuthors, docOverview, docCategories);
 
-        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
+        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
 
         try {
             // Now addToDatabase returns InsertOneResult
@@ -111,19 +111,19 @@ public class Menu {
     // Displays the summary of a document from mongoDB
     private static void displaySummary() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-            // TODO: Implement this method
+        // TODO: Implement this method
     }
-    
+
     // Gets the authors from mongoDG and displays them
     private static void displayAuthors() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-            // TODO: Implement this method
+        // TODO: Implement this method
     }
-    
+
     // Gets the categories from mongoDB and displays them
     private static void displayCategories() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-            // TODO: Implement this method
+        // TODO: Implement this method
     }
 
     public static void main(String[] args) {
