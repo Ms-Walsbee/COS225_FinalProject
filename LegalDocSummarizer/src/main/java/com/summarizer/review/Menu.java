@@ -1,15 +1,15 @@
 package com.summarizer.review;
 
 import com.mongodb.client.result.InsertOneResult;
-import com.summarizer.review.DatabaseManager;
-import com.summarizer.review.DocumentUploader;
+// import com.summarizer.review.DatabaseManager;
+// import com.summarizer.review.DocumentUploader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import org.bson.Document;
 
 public class Menu {
@@ -98,7 +98,8 @@ public class Menu {
         String title = scanner.nextLine();
         List<Document> docs = databaseManager.getDocumentsByTitle(title);
         if (docs.isEmpty()) {
-            System.out.println("No document found with the title.");
+            System.out.println("\nNo document found with the title: " + title);
+            System.out.println();
         } else {
             for (Document doc : docs) {
                 System.out.println("\nSummary for '" + title + "': " + doc.getString("overview"));
