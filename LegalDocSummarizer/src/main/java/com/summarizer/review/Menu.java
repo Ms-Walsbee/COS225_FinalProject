@@ -108,6 +108,24 @@ public class Menu {
         }
     }
 
+    // Displays the summary of a document from mongoDB
+    private static void displaySummary() {
+        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
+            // TODO: Implement this method
+    }
+    
+    // Gets the authors from mongoDG and displays them
+    private static void displayAuthors() {
+        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
+            // TODO: Implement this method
+    }
+    
+    // Gets the categories from mongoDB and displays them
+    private static void displayCategories() {
+        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
+            // TODO: Implement this method
+    }
+
     public static void main(String[] args) {
         System.out.println("Starting the Legal Doc Summarizer..");
         Menu menu = new Menu();
@@ -160,15 +178,15 @@ public class Menu {
                     break;
                 case 5:
                     System.out.println("Displaying summarization....");
-                    // displaySummary();
+                    displaySummary();
                     break;
                 case 6:
                     System.out.println("Displaying authors....");
-                    // displayAuthors();
+                    displayAuthors();
                     break;
                 case 7:
                     System.out.println("Displaying categories....");
-                    // displayCategories();
+                    displayCategories();
                     break;
                 case 8:
                     // exit
@@ -181,23 +199,5 @@ public class Menu {
                     break;
             }
         }
-    }
-
-    // Displays the summary of a document from mongoDB
-    private static void displaySummary() {
-        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-        // TODO: Implement this method
-    }
-
-    // Gets the authors from mongoDG and displays them
-    private static void displayAuthors() {
-        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-        // TODO: Implement this method
-    }
-
-    // Gets the categories from mongoDB and displays them
-    private static void displayCategories() {
-        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-        // TODO: Implement this method
     }
 }
