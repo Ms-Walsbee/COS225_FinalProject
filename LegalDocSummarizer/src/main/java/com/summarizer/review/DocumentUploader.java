@@ -10,9 +10,8 @@ public class DocumentUploader {
     private String overview;
     private String categories;
 
-
     // Constructors/initialization for file details and checking formats
-    public DocumentUploader(String title, String authors, String overview, String categories, String content) {
+    public DocumentUploader(String title, String authors, String overview, String categories) {
         this.title = title;
         this.authors = authors;
         this.overview = overview;
