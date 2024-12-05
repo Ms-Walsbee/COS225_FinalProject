@@ -1,69 +1,59 @@
 package com.summarizer.review;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class TextProcessor {
-    // Attributes
-    private String status; // Current status of the document processing
-    private String preprocessText; // Stores cleaned text
-    private String summary; // Stores generated summary
-    private int documentID; // Unique identifier for the document
+    private Set<String> stopWords; // Set of stop words
 
     // Constructor
-    public TextProcessor(int documentID) {
-        this.documentID = documentID;
-        this.status = "Uploaded"; // Initial status
-        this.preprocessText = "";
-        this.summary = "";
+    public TextProcessor() {
+        this.stopWords = new HashSet<>();
     }
 
-    // Getters and Setters
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getPreprocessText() {
-        return preprocessText;
-    }
-
-    public void setPreprocessText(String preprocessText) {
-        this.preprocessText = preprocessText;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public int getDocumentID() {
-        return documentID;
-    }
-
-    // Methods for document processing
-    public void processDocument(String documentContent) {
-        setStatus("Processing");
-        try {
-            String cleanedText = cleanText(documentContent);
-            setPreprocessText(cleanedText);
-            String summary = generateSummary(cleanedText);
-            setSummary(summary);
-            setStatus("Completed");
-        } catch (Exception e) {
-            setStatus("Error");
-            System.out.println("Error processing document: " + e.getMessage());
+    // Load stop words from a file
+    private void loadStopWords(String stopWordsFilePath) {
+        try (BufferedReader br = new BufferedReader(new FileReader(stopWordsFilePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                stopWords.add(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private String cleanText(String text) {
-        return text.replaceAll("\\W", " ").toLowerCase();
+    private String[] removeStopWords(String[] arrayOfText) {
+        Set<String> words = new HashSet<>();
+        for (String word : arrayOfText) {
+            if (!stopWords.contains(word)) {
+                words.add(word);
+            }
+        }
+        return words.toArray(new String[0]);
     }
 
-    private String generateSummary(String text) {
-        return text.length() > 100 ? text.substring(0, 100) + "..." : text;
+    private String lowerAllCases(String text) {
+        return text.toLowerCase();
+    }
+
+    private String removePunctuation(String text) {
+        return text.replaceAll("[^a-zA-Z0-9]", " ");
+    }
+
+    private String[] tokenizeWords(String text) {
+        return text.split("\\s+");
+    }
+
+    // Clean text by lowercasing, removing punctuation, and stop words
+    public String cleanText(String text) {
+        text = lowerAllCases(text);
+        text = removePunctuation(text);
+        String[] words = tokenizeWords(text);
+        words = removeStopWords(words);
+        return String.join(" ", words);
     }
 }
