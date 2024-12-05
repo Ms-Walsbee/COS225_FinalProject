@@ -10,15 +10,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
-<<<<<<< Updated upstream
-=======
-    private DatabaseManager databaseManager;
-
-    public Menu() {
-        this.databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
-        // this.databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-    }
->>>>>>> Stashed changes
 
     public void startUp() {
         // Create a collection in the database to store objects
@@ -144,7 +135,6 @@ public class Menu {
                     break;
                 case 5:
                     System.out.println("Displaying summarization....");
-<<<<<<< Updated upstream
                     displaySummary();
                     break;
                 case 6:
@@ -154,17 +144,6 @@ public class Menu {
                 case 7:
                     System.out.println("Displaying categories....");
                     displayCategories();
-=======
-                    // displaySummary();
-                    break;
-                case 6:
-                    System.out.println("Displaying authors....");
-                    // displayAuthors();
-                    break;
-                case 7:
-                    System.out.println("Displaying categories....");
-                    // displayCategories();
->>>>>>> Stashed changes
                 case 8:
                     // exit
                     System.out.println("Exiting the summarizer...");
