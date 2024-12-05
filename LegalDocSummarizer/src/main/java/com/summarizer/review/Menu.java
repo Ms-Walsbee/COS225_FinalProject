@@ -55,9 +55,8 @@ public class Menu {
     public void shutDown() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
         databaseManager.deleteCollection();
-        // DatabaseManager databaseManager2 = new DatabaseManager("LegalDocSummarizer",
-        // "doc_data");
-        // databaseManager2.deleteCollection();
+        DatabaseManager databaseManager2 = new DatabaseManager("LegalDocSummarizer", "doc_data");
+        databaseManager2.deleteCollection();
     }
 
     public void addDocumentToDatabase(Scanner scanner) {
@@ -76,7 +75,7 @@ public class Menu {
 
         DocumentUploader documentUploader = new DocumentUploader(docTitle, docAuthors, docOverview, docCategories);
 
-        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
+        DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
 
         try {
             // Now addToDatabase returns InsertOneResult
