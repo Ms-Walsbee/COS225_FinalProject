@@ -50,7 +50,7 @@ public class DatabaseManager {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase(databaseName);
             database.createCollection(collectionName);
-            System.out.print("Collection created successfully!");
+            System.out.print("\033[0;36mCollection created successfully!\033[0m");
         } catch (Exception e) {
             System.out.println("An error occurred while creating the collection: " + e.getMessage());
         }
