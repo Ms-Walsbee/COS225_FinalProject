@@ -107,10 +107,10 @@ public class DatabaseManager {
             MongoCollection<Document> collection = database.getCollection(collectionName);
 
             // Create a query to find a document
-            Document query = new Document("title", title);
-            Document doc = collection.find(query).first();
-            if (doc != null) {
-                documents.add(doc);
+            Document query = new Document("title", new Document("$regex", title).append("$options", "i"));
+            // Document doc = collection.find(query).first();
+            for (Document document : collection.find(query)) {
+                documents.add(document);
             }
         } catch (Exception e) {
             // Print an error message if an exception occurs
