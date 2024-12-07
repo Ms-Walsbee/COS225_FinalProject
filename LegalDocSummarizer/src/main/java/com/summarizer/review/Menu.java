@@ -117,6 +117,27 @@ public class Menu {
         }
     }
 
+    public void retrieveSummaryByAuthor(Scanner scanner) {
+        System.out.print("Please enter the author of the document: ");
+        String author = scanner.nextLine();
+        List<Document> docs = databaseManager.getDocumentsByAuthor(author);
+        List<Document> docFromDocData = docDatabaseManager.getDocumentsByAuthor(author);
+
+        List<Document> allDocs = new ArrayList<>();
+        allDocs.addAll(docs);
+        allDocs.addAll(docFromDocData);
+        if (allDocs.isEmpty()) {
+            System.out.println("\nNo document found by the author: " + author);
+            System.out.println();
+        } else {
+            for (Document doc : allDocs) {
+                System.out.println("\nSummary for '" + author + "': " + doc.getString("overview"));
+                System.out.println();
+            }
+
+        }
+    }
+
     // Displays the summary of a document from mongoDB
     private static void displaySummary() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
@@ -183,7 +204,7 @@ public class Menu {
                     break;
                 case 4:
                     System.out.println("Retrieving past summary from the database by author....");
-                    // menu.retrieveSummaryByAuthor(scanner);
+                    menu.retrieveSummaryByAuthor(scanner);
                     break;
                 case 5:
                     System.out.println("Displaying summarization....");
