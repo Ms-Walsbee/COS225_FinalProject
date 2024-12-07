@@ -84,7 +84,7 @@ public class Menu {
             InsertOneResult result = databaseManager.addToDatabase(documentUploader.getDocument());
 
             if (result != null) {
-                System.out.println("Document successfully added to the database.\n");
+                System.out.println("\u001B[32mDocument successfully added to the database.\033[0m\n");
             } else {
                 System.out.println("Failed to add the document to the database.");
                 //
@@ -165,19 +165,20 @@ public class Menu {
     }
 
     public static void main(String[] args) {
-        System.out.println("Starting the Legal Doc Summarizer..");
+        System.out.println("\033[0;36mStarting the Legal Doc Summarizer.\033[0m");
         Menu menu = new Menu();
         menu.startUp();
 
         System.out.println("\n");
-        System.out.println("Hello! Welcome to the Summarizer!");
+        System.out.println("\u001B[32mHello! Welcome to the Summarizer!");
+
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
 
         while (choice != 7) {
-            System.out.println("Please select one of the following options: ");
+            System.out.println("\u001B[33mPlease select one of the following options: \033[0m");
 
-            System.out.println("1. Upload legal document.");
+            System.out.println("\033[0;36m1. Upload legal document.");
             System.out.println("2. Generate summary of a document.");
             System.out.println("3. Retrieve past summary from the database by title.");
             System.out.println("4. Retrieve past summary from the database by author.");
@@ -186,7 +187,7 @@ public class Menu {
             System.out.println("7. Display categories of a document.");
             System.out.println("8. Exit.");
 
-            System.out.print("Enter your choice: ");
+            System.out.print("Enter your choice: \033[0m");
 
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
@@ -199,7 +200,7 @@ public class Menu {
             }
             switch (choice) {
                 case 1:
-                    System.out.println("Adding document....");
+                    System.out.println("\u001B[33mAdding document....\33[0m");
                     menu.addDocumentToDatabase(scanner);
                     break;
                 case 2:
@@ -228,7 +229,7 @@ public class Menu {
                     break;
                 case 8:
                     // exit
-                    System.out.println("Exiting the summarizer...");
+                    System.out.println("\u001B[31mExiting the summarizer...\033[0m");
                     menu.shutDown();
                     return;
 
