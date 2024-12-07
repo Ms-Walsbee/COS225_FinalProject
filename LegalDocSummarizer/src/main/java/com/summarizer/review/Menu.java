@@ -9,15 +9,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
-// import java.util.ArrayList;
+import java.util.ArrayList;
 import org.bson.Document;
 
 public class Menu {
     private DatabaseManager databaseManager;
+    private DatabaseManager docDatabaseManager;
 
     public Menu() {
         this.databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
-        // this.databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
+        this.docDatabaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
+
     }
 
     public void startUp() {
@@ -96,15 +98,46 @@ public class Menu {
     public void retrieveSummaryByTitle(Scanner scanner) {
         System.out.print("Please enter the title of the document: ");
         String title = scanner.nextLine();
+
         List<Document> docs = databaseManager.getDocumentsByTitle(title);
-        if (docs.isEmpty()) {
+        List<Document> docFromDocData = docDatabaseManager.getDocumentsByTitle(title);
+
+        List<Document> allDocs = new ArrayList<>();
+        allDocs.addAll(docs);
+        allDocs.addAll(docFromDocData);
+
+        if (allDocs.isEmpty()) {
             System.out.println("\nNo document found with the title: " + title);
             System.out.println();
         } else {
-            for (Document doc : docs) {
+            for (Document doc : allDocs) {
                 System.out.println("\nSummary for '" + title + "': " + doc.getString("overview"));
                 System.out.println();
             }
+        }
+    }
+
+    public void retrieveSummaryByAuthor(Scanner scanner) {
+        System.out.print("Please enter the author of the document: ");
+        String author = scanner.nextLine();
+        List<Document> docs = databaseManager.getDocumentsByAuthor(author);
+        List<Document> docFromDocData = docDatabaseManager.getDocumentsByAuthor(author);
+
+        List<Document> allDocs = new ArrayList<>();
+        allDocs.addAll(docs);
+        allDocs.addAll(docFromDocData);
+        if (allDocs.isEmpty()) {
+            System.out.println("\nNo document found by the author: " + author);
+            System.out.println();
+        } else {
+            for (Document doc : allDocs) {
+                String title = doc.getString("title");
+
+                System.out.println("\nSummary for author '" + author + "' from the document titled '" + title + "':"
+                        + doc.getString("overview"));
+                System.out.println();
+            }
+
         }
     }
 
@@ -174,7 +207,7 @@ public class Menu {
                     break;
                 case 4:
                     System.out.println("Retrieving past summary from the database by author....");
-                    // menu.retrieveSummaryByAuthor(scanner);
+                    menu.retrieveSummaryByAuthor(scanner);
                     break;
                 case 5:
                     System.out.println("Displaying summarization....");

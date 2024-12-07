@@ -75,6 +75,24 @@ public class DatabaseManager {
         }
     }
 
+    public List<Document> getDocumentsByAuthor(String author) {
+        List<Document> documents = new ArrayList<>();
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase(databaseName);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            Document query = new Document("authors", new Document("$regex", author).append("$options", "i"));
+            for (Document doc : collection.find(query)) {
+                documents.add(doc);
+            }
+
+        } catch (Exception e) {
+            // Print an error message if an exception occurs
+            System.out.println("An error occurred while retrieving the document: " + e.getMessage());
+        }
+        return documents;
+
+    }
+
     public List<Document> getDocumentsByTitle(String title) {
 
         List<Document> documents = new ArrayList<>();
@@ -88,14 +106,14 @@ public class DatabaseManager {
             // Access the specified collection within the database
             MongoCollection<Document> collection = database.getCollection(collectionName);
 
-            // Create a query to find a document with the specified title
+            // Create a query to find a document
             Document query = new Document("title", title);
             Document doc = collection.find(query).first();
             if (doc != null) {
                 documents.add(doc);
             }
         } catch (Exception e) {
-            // Print an error message if an exception occurs during the database operation
+            // Print an error message if an exception occurs
             System.out.println("An error occurred while retrieving the document: " + e.getMessage());
 
             // Return null if the document could not be retrieved
