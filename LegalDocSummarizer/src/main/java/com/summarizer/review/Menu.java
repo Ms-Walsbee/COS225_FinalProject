@@ -131,7 +131,10 @@ public class Menu {
             System.out.println();
         } else {
             for (Document doc : allDocs) {
-                System.out.println("\nSummary for '" + author + "': " + doc.getString("overview"));
+                String title = doc.getString("title");
+
+                System.out.println("\nSummary for author '" + author + "' from the document titled '" + title + "':"
+                        + doc.getString("overview"));
                 System.out.println();
             }
 
