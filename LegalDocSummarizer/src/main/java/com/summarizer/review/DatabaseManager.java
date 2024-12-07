@@ -80,7 +80,7 @@ public class DatabaseManager {
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase(databaseName);
             MongoCollection<Document> collection = database.getCollection(collectionName);
-            Document query = new Document("authors", author);
+            Document query = new Document("authors", new Document("$regex", author).append("$options", "i"));
             for (Document doc : collection.find(query)) {
                 documents.add(doc);
             }
