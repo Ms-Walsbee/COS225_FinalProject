@@ -98,20 +98,23 @@ public class Menu {
     public void retrieveSummaryByTitle(Scanner scanner) {
         System.out.print("Please enter the title of the document: ");
         String title = scanner.nextLine();
-
         List<Document> docs = databaseManager.getDocumentsByTitle(title);
         List<Document> docFromDocData = docDatabaseManager.getDocumentsByTitle(title);
 
         List<Document> allDocs = new ArrayList<>();
         allDocs.addAll(docs);
         allDocs.addAll(docFromDocData);
-
         if (allDocs.isEmpty()) {
             System.out.println("\nNo document found with the title: " + title);
             System.out.println();
         } else {
-            for (Document doc : allDocs) {
-                System.out.println("\nSummary for '" + title + "': " + doc.getString("overview"));
+            for (Document document : allDocs) {
+                String authors = document.getString("authors");
+                String titleFromDoc = document.getString("title");
+
+                System.out.println(
+                        "\nSummary for title '" + titleFromDoc + "' by the author(s) '" + authors + "':"
+                                + document.getString("overview"));
                 System.out.println();
             }
         }
@@ -119,22 +122,24 @@ public class Menu {
 
     public void retrieveSummaryByAuthor(Scanner scanner) {
         System.out.print("Please enter the author of the document: ");
-        String author = scanner.nextLine();
-        List<Document> docs = databaseManager.getDocumentsByAuthor(author);
-        List<Document> docFromDocData = docDatabaseManager.getDocumentsByAuthor(author);
+        String authors = scanner.nextLine();
+        List<Document> docs = databaseManager.getDocumentsByAuthor(authors);
+        List<Document> docFromDocData = docDatabaseManager.getDocumentsByAuthor(authors);
 
         List<Document> allDocs = new ArrayList<>();
         allDocs.addAll(docs);
         allDocs.addAll(docFromDocData);
         if (allDocs.isEmpty()) {
-            System.out.println("\nNo document found by the author: " + author);
+            System.out.println("\nNo document found by the author: " + authors);
             System.out.println();
         } else {
             for (Document doc : allDocs) {
                 String title = doc.getString("title");
+                String authorFromDoc = doc.getString("authors");
 
-                System.out.println("\nSummary for author '" + author + "' from the document titled '" + title + "':"
-                        + doc.getString("overview"));
+                System.out.println(
+                        "\nSummary for author '" + authorFromDoc + "' from the document titled '" + title + "':"
+                                + doc.getString("overview"));
                 System.out.println();
             }
 
