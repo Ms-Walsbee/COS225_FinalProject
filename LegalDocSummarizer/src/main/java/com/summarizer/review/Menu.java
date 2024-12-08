@@ -94,28 +94,29 @@ public class Menu {
         }
 
     }
-public void generateSummary(Scanner scanner) {
-    System.out.print("Please enter the title of the document to generate a summary: ");
-    String title = scanner.nextLine();
-    
-    // Retrieve the document by title
-    List<Document> docs = databaseManager.getDocumentsByTitle(title);
-    
-    if (docs.isEmpty()) {
-        System.out.println("\nNo document found with the title: " + title);
-    } else {
-        // Assuming there's only one document with the given title
-        Document document = docs.get(0);
-        String overview = document.getString("overview");
-        
-        // Here you can implement your summarization logic
-        // For demonstration, let's assume the overview itself is the summary
-        String summary = overview; // Replace this with actual summarization logic
-        
-        System.out.println("\nGenerated Summary for '" + title + "':");
-        System.out.println(summary);
+
+    public void generateSummary(Scanner scanner) {
+        System.out.print("Please enter the title of the document to generate a summary: ");
+        String title = scanner.nextLine();
+
+        // Retrieve the document by title
+        List<Document> docs = databaseManager.getDocumentsByTitle(title);
+
+        if (docs.isEmpty()) {
+            System.out.println("\nNo document found with the title: " + title);
+        } else {
+            // Assuming there's only one document with the given title
+            Document document = docs.get(0);
+            String overview = document.getString("overview");
+
+            // Here you can implement your summarization logic
+            // For demonstration, let's assume the overview itself is the summary
+            String summary = overview; // Replace this with actual summarization logic
+
+            System.out.println("\nGenerated Summary for '" + title + "':");
+            System.out.println(summary);
+        }
     }
-}
 
     public void retrieveSummaryByTitle(Scanner scanner) {
         System.out.print("Please enter the title of the document: ");
@@ -171,10 +172,10 @@ public void generateSummary(Scanner scanner) {
     // Displays the summary of a document from mongoDB
     private static void displaySummary() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-    
+
         // Retrieve all documents from the database
         List<Document> documents = databaseManager.getAllDocuments();
-    
+
         if (documents.isEmpty()) {
             System.out.println("\nNo summaries available in the database.");
         } else {
@@ -191,10 +192,10 @@ public void generateSummary(Scanner scanner) {
     // Gets the authors from mongoDG and displays them
     private static void displayAuthors() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-    
+
         // Retrieve all documents from the database
         List<Document> documents = databaseManager.getAllDocuments();
-    
+
         if (documents.isEmpty()) {
             System.out.println("\nNo authors available in the database.");
         } else {
@@ -211,10 +212,10 @@ public void generateSummary(Scanner scanner) {
     // Gets the categories from mongoDB and displays them
     private static void displayCategories() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-    
+
         // Retrieve all documents from the database
         List<Document> documents = databaseManager.getAllDocuments();
-    
+
         if (documents.isEmpty()) {
             System.out.println("\nNo categories available in the database.");
         } else {
@@ -225,7 +226,7 @@ public void generateSummary(Scanner scanner) {
             }
         }
     }
-    
+
     public static void main(String[] args) {
         System.out.println("\033[0;36mStarting the Legal Doc Summarizer.\033[0m");
         Menu menu = new Menu();
@@ -242,8 +243,8 @@ public void generateSummary(Scanner scanner) {
 
             System.out.println("\033[0;36m1. Upload legal document.");
             System.out.println("2. Generate summary of a document.");
-            System.out.println("3. Display summaries in entire database by title.");
-            System.out.println("4. Display summaries in entire database by author.");
+            System.out.println("3. Search database by title.");
+            System.out.println("4. Search database by author.");
             System.out.println("5. Display title and summary of user submitted documents.");
             System.out.println("6. Display title and authors of user submitted documents.");
             System.out.println("7. Display categories of user submitted documents.");
