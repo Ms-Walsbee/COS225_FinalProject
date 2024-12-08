@@ -95,27 +95,46 @@ public class Menu {
 
     }
 
-    public void generateSummary(Scanner scanner) {
-        System.out.print("Please enter the title of the document to generate a summary: ");
-        String title = scanner.nextLine();
+public void generateSummary(Scanner scanner) {
+    System.out.print("Please enter the title of the document to generate a summary: ");
+    String title = scanner.nextLine();
 
-        // Retrieve the document by title
-        List<Document> docs = databaseManager.getDocumentsByTitle(title);
+    // Retrieve the document by title from doc_data
+    List<Document> docs = docDatabaseManager.getDocumentsByTitle(title);
 
-        if (docs.isEmpty()) {
-            System.out.println("\nNo document found with the title: " + title);
-        } else {
-            // Assuming there's only one document with the given title
-            Document document = docs.get(0);
-            String overview = document.getString("overview");
+    if (docs.isEmpty()) {
+        System.out.println("\nNo document found with the title: " + title);
+    } else {
+        // Assuming there's only one document with the given title
+        Document document = docs.get(0);
+        String overview = document.getString("overview");
 
-            // Here you can implement your summarization logic
-            // For demonstration, let's assume the overview itself is the summary
-            String summary = overview; // Replace this with actual summarization logic
+        // Initialize TextProcessor and TFIDF
+        TextProcessor textProcessor = new TextProcessor();
+        TFIDF tfidf = new TFIDF(textProcessor);
 
-            System.out.println("\nGenerated Summary for '" + title + "':");
-            System.out.println(summary);
+        // Clean and process the text
+        String cleanedText = textProcessor.cleanText(overview);
+
+        // Add the document to TFIDF
+        org.bson.types.ObjectId docId = document.getObjectId("_id");
+        tfidf.addSample(docId, cleanedText);
+
+        // Calculate IDF for the vocabulary
+        // hope this works
+        tfidf.calculateIDF();
+
+        // Generate a summary based on TF-IDF scores
+        String[] words = cleanedText.split("\\s+");
+        StringBuilder summary = new StringBuilder();
+        for (String word : words) {
+            float score = tfidf.calculateTFIDF(docId, word);
+            if (score > 0.1) { 
+                summary.append(word).append(" ");
+            }
         }
+        System.out.println("\nGenerated Summary for '" + title + "':");
+        System.out.println(summary.toString().trim());
     }
 
     public void retrieveSummaryByTitle(Scanner scanner) {
