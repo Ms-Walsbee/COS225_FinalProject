@@ -122,4 +122,19 @@ public class DatabaseManager {
         return documents;
     }
 
+    //Fetch all the documents frome the collection
+    public List<Document> getAllDocuments() {
+        List<Document> documents = new ArrayList<>();
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase(databaseName);
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+            for (Document doc : collection.find()) {
+                documents.add(doc);
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred while retrieving documents: " + e.getMessage());
+        }
+        return documents;
+    }
+
 }
