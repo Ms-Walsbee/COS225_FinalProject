@@ -120,6 +120,7 @@ public void generateSummary(Scanner scanner) {
         tfidf.addSample(docId, cleanedText);
 
         // Calculate IDF for the vocabulary
+        // hope this works
         tfidf.calculateIDF();
 
         // Generate a summary based on TF-IDF scores
