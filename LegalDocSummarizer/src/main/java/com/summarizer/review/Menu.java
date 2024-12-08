@@ -239,16 +239,16 @@ public void generateSummary(Scanner scanner) {
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
 
-        while (choice != 7) {
+        while (choice != 8) {
             System.out.println("\u001B[33mPlease select one of the following options: \033[0m");
 
             System.out.println("\033[0;36m1. Upload legal document.");
             System.out.println("2. Generate summary of a document.");
             System.out.println("3. Retrieve past summary from the database by title.");
             System.out.println("4. Retrieve past summary from the database by author.");
-            System.out.println("5. Display title and summary of sumbitted documents.");
-            System.out.println("6. Display title and authors of submitted documents.");
-            System.out.println("7. Display title and categories of submitted documents.");
+            System.out.println("5. Display title and summary of user sumbitted documents.");
+            System.out.println("6. Display title and authors of user submitted documents.");
+            System.out.println("7. Display title and categories of user submitted documents.");
             System.out.println("8. Exit.");
 
             System.out.print("Enter your choice: \033[0m");
