@@ -149,21 +149,63 @@ public class Menu {
     // Displays the summary of a document from mongoDB
     private static void displaySummary() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-        // TODO: Implement this method
+    
+        // Retrieve all documents from the database
+        List<Document> documents = databaseManager.getAllDocuments();
+    
+        if (documents.isEmpty()) {
+            System.out.println("\nNo summaries available in the database.");
+        } else {
+            System.out.println("\nSummaries of all documents in the database:");
+            for (Document doc : documents) {
+                String title = doc.getString("title");
+                String overview = doc.getString("overview");
+                System.out.println("\nTitle: " + title);
+                System.out.println("Summary: " + overview);
+            }
+        }
     }
 
     // Gets the authors from mongoDG and displays them
     private static void displayAuthors() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-        // TODO: Implement this method
+    
+        // Retrieve all documents from the database
+        List<Document> documents = databaseManager.getAllDocuments();
+    
+        if (documents.isEmpty()) {
+            System.out.println("\nNo authors available in the database.");
+        } else {
+            System.out.println("\nAuthors of all documents in the database:");
+            for (Document doc : documents) {
+                String title = doc.getString("title");
+                String authors = doc.getString("authors");
+                System.out.println("\nTitle: " + title);
+                System.out.println("Authors: " + authors);
+            }
+        }
     }
 
     // Gets the categories from mongoDB and displays them
     private static void displayCategories() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
-        // TODO: Implement this method
+    
+        // Retrieve all documents from the database
+        List<Document> documents = databaseManager.getAllDocuments();
+    
+        if (documents.isEmpty()) {
+            System.out.println("\nNo categories available in the database.");
+        } else {
+            System.out.println("\nCategories of all documents in the database:");
+            for (Document doc : documents) {
+                String title = doc.getString("title");
+                String categories = doc.getString("categories");
+                System.out.println("\nTitle: " + title);
+                System.out.println("Categories: " + categories);
+            }
+        }
     }
-
+    
     public static void main(String[] args) {
         System.out.println("\033[0;36mStarting the Legal Doc Summarizer.\033[0m");
         Menu menu = new Menu();
