@@ -217,7 +217,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
 
-        while (choice != 7) {
+        while (choice != 8) {
             System.out.println("\u001B[33mPlease select one of the following options: \033[0m");
 
             System.out.println("\033[0;36m1. Upload legal document.");
