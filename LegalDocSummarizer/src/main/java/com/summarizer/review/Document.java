@@ -28,20 +28,14 @@ public class Document {
 
     // Setters
     public void setSummaries(String summaries) {
-
     }
 
     public void setUserSummaries(String usersummaries) {
-
     }
 
     public void setLastUpdated(Date lastUpdated) {
-
     }
 
     public void setDocumentID(int documentID) {
-
     }
-
-    //Methods
 }

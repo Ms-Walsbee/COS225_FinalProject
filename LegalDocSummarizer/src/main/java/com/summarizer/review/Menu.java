@@ -224,9 +224,9 @@ public class Menu {
             System.out.println("2. Generate summary of a document.");
             System.out.println("3. Retrieve past summary from the database by title.");
             System.out.println("4. Retrieve past summary from the database by author.");
-            System.out.println("5. Display summarization of a document.");
-            System.out.println("6. Display authors of a document.");
-            System.out.println("7. Display categories of a document.");
+            System.out.println("5. Display title and summary of sumbitted documents.");
+            System.out.println("6. Display title and authors of submitted documents.");
+            System.out.println("7. Display title and categories of submitted documents.");
             System.out.println("8. Exit.");
 
             System.out.print("Enter your choice: \033[0m");
