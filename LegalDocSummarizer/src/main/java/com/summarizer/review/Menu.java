@@ -94,6 +94,28 @@ public class Menu {
         }
 
     }
+public void generateSummary(Scanner scanner) {
+    System.out.print("Please enter the title of the document to generate a summary: ");
+    String title = scanner.nextLine();
+    
+    // Retrieve the document by title
+    List<Document> docs = databaseManager.getDocumentsByTitle(title);
+    
+    if (docs.isEmpty()) {
+        System.out.println("\nNo document found with the title: " + title);
+    } else {
+        // Assuming there's only one document with the given title
+        Document document = docs.get(0);
+        String overview = document.getString("overview");
+        
+        // Here you can implement your summarization logic
+        // For demonstration, let's assume the overview itself is the summary
+        String summary = overview; // Replace this with actual summarization logic
+        
+        System.out.println("\nGenerated Summary for '" + title + "':");
+        System.out.println(summary);
+    }
+}
 
     public void retrieveSummaryByTitle(Scanner scanner) {
         System.out.print("Please enter the title of the document: ");
@@ -247,7 +269,7 @@ public class Menu {
                     break;
                 case 2:
                     System.out.println("Generating summary of the document....");
-                    // generateSummary();
+                    menu.generateSummary(scanner);
                     break;
                 case 3:
                     System.out.println("Retrieving past summary from the database by title....");
