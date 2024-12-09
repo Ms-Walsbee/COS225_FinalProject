@@ -98,52 +98,56 @@ public class Menu {
         }
 
     }
-public void generateSentenceSummary(Scanner scanner) {
-    System.out.print("Please enter the title of the document to generate a summary: ");
-    String title = scanner.nextLine();
 
-    // Retrieve the document by title from doc_data
-    List<Document> docs = docDatabaseManager.getDocumentsByTitle(title);
+    public void generateSentenceSummary(Scanner scanner) {
+        System.out.print("Please enter the title of the document to generate a summary: ");
+        String title = scanner.nextLine();
 
-    if (docs.isEmpty()) {
-        System.out.println("\nNo document found with the title: " + title);
-    } else {
-        org.bson.Document document = docs.get(0);
-        String overview = document.getString("overview");
+        // Retrieve the document by title from doc_data
+        List<Document> docs = databaseManager.getDocumentsByTitle(title);
+        List<Document> docFromDocData = docDatabaseManager.getDocumentsByTitle(title);
+        List<Document> allDocs = new ArrayList<>();
+        allDocs.addAll(docFromDocData);
 
-        // Initialize TextProcessor and TFIDF
-        TextProcessor textProcessor = new TextProcessor();
-        TFIDF tfidf = new TFIDF(textProcessor);
+        if (docs.isEmpty()) {
+            System.out.println("\nNo document found with the title: " + title);
+        } else {
+            org.bson.Document document = docs.get(0);
+            String overview = document.getString("overview");
 
-        String[] sentences = overview.split("(?<=[.!?])\\s+"); // Split by sentence boundaries
-        String cleanedOverview = textProcessor.cleanText(overview);
-        tfidf.addSample(document.getObjectId("_id"), cleanedOverview);
-        tfidf.calculateIDF();
+            // Initialize TextProcessor and TFIDF
+            TextProcessor textProcessor = new TextProcessor();
+            TFIDF tfidf = new TFIDF(textProcessor);
 
-        // Score sentences
-        Map<String, Float> sentenceScores = new HashMap<>();
-        for (String sentence : sentences) {
-            String cleanedSentence = textProcessor.cleanText(sentence);
-            String[] words = cleanedSentence.split("\\s+");
-            float score = tfidf.calculateTFIDF(document.getObjectId("_id"), words);
-            sentenceScores.put(sentence, score);
+            String[] sentences = overview.split("(?<=[.!?])\\s+"); // Split by sentence boundaries
+            String cleanedOverview = textProcessor.cleanText(overview);
+            tfidf.addSample(document.getObjectId("_id"), cleanedOverview);
+            tfidf.calculateIDF();
+
+            // Score sentences
+            Map<String, Float> sentenceScores = new HashMap<>();
+            for (String sentence : sentences) {
+                String cleanedSentence = textProcessor.cleanText(sentence);
+                String[] words = cleanedSentence.split("\\s+");
+                float score = tfidf.calculateTFIDF(document.getObjectId("_id"), words);
+                sentenceScores.put(sentence, score);
+            }
+            // Sort sentences by score
+            List<Map.Entry<String, Float>> sortedSentences = sentenceScores.entrySet().stream()
+                    .sorted((a, b) -> Float.compare(b.getValue(), a.getValue()))
+                    .collect(Collectors.toList());
+
+            // Select top sentences for the summary
+            int maxSentences = 2;
+            StringBuilder summary = new StringBuilder();
+            for (int i = 0; i < Math.min(maxSentences, sortedSentences.size()); i++) {
+                summary.append(sortedSentences.get(i).getKey()).append(" ");
+            }
+
+            System.out.println("\nGenerated Sentence-Based Summary for '" + title + "':");
+            System.out.println(summary.toString().trim());
         }
-        // Sort sentences by score
-        List<Map.Entry<String, Float>> sortedSentences = sentenceScores.entrySet().stream()
-                .sorted((a, b) -> Float.compare(b.getValue(), a.getValue()))
-                .collect(Collectors.toList());
-
-        // Select top sentences for the summary
-        int maxSentences = 3; 
-        StringBuilder summary = new StringBuilder();
-        for (int i = 0; i < Math.min(maxSentences, sortedSentences.size()); i++) {
-            summary.append(sortedSentences.get(i).getKey()).append(" ");
-        }
-
-        System.out.println("\nGenerated Sentence-Based Summary for '" + title + "':");
-        System.out.println(summary.toString().trim());
     }
-}
 
     public void retrieveSummaryByTitle(Scanner scanner) {
         System.out.print("Please enter the title of the document: ");
@@ -293,7 +297,7 @@ public void generateSentenceSummary(Scanner scanner) {
                     System.out.println("\u001B[33mAdding document....\33[0m");
                     menu.addDocumentToDatabase(scanner);
                     break;
-                    case 2:
+                case 2:
                     System.out.println("Generating sentence-based summary of the document...");
                     menu.generateSentenceSummary(scanner);
                     break;

@@ -12,7 +12,7 @@ public class TextProcessor {
     // Constructor
     public TextProcessor() {
         this.stopWords = new HashSet<>();
-        loadStopWords("src/main/resources/stopwords.txt"); // Default stopwords file path
+        loadStopWords("src/main/resources/listOfStopWords.txt"); // Default stopwords file path
     }
 
     // Load stop words from a file
@@ -25,7 +25,7 @@ public class TextProcessor {
             System.out.println("Stop words loaded: " + stopWords.size());
         } catch (IOException e) {
             System.err.println("Failed to load stop words from file. Using default stop words.");
-            
+
         }
     }
 
