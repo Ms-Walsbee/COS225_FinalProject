@@ -1,26 +1,23 @@
 package com.summarizer.review;
-
-import java.util.ArrayList;
+import org.bson.types.ObjectId;
 import java.util.HashMap;
 import java.util.HashSet;
-import org.bson.BsonValue;
-import org.bson.types.ObjectId;
-
 
 public class TFIDF {
 
     private HashSet<String> vocabulary = new HashSet<>();
     private HashMap<String, Float> idf = new HashMap<>();
-    private HashMap<BsonValue, HashMap<String, Integer>> tf = new HashMap<>();
+    private HashMap<ObjectId, HashMap<String, Integer>> tf = new HashMap<>();
     private TextProcessor processor;
 
     public TFIDF(TextProcessor processor) {
         this.processor = processor;
     }
 
-    public void addSample(BsonValue id, String text) {
+    public void addSample(ObjectId id, String text) {
         String cleanedText = processor.cleanText(text);
         String[] words = cleanedText.split("\\s+");
+
         HashMap<String, Integer> wordCount = new HashMap<>();
         for (String word : words) {
             wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
@@ -47,17 +44,6 @@ public class TFIDF {
                 idf.put(word, 0.1f);
             }
         }
-    }
-
-    public float calculateTFIDF(BsonValue id, String word) {
-        if (!tf.containsKey(id)) {
-            return 0;
-        }
-        HashMap<String, Integer> wordCount = tf.get(id);
-        if (!wordCount.containsKey(word)) {
-            return 0;
-        }
-        return wordCount.get(word) * idf.get(word);
     }
 
     public float calculateTFIDF(ObjectId id, String word) {

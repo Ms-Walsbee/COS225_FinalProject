@@ -146,16 +146,6 @@ public class Menu {
 }
         
 
-
-
-
-
-
-
-
-
-
-
     public void retrieveSummaryByTitle(Scanner scanner) {
         System.out.print("Please enter the title of the document: ");
         String title = scanner.nextLine();
