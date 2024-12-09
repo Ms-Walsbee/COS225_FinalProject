@@ -28,14 +28,22 @@ public class TFIDF {
     }
 
     public void calculateIDF() {
+        int totalDocs = tf.size();
+
         for (String word : vocabulary) {
-            int count = 0;
+            int docCount = 0;
+
             for (HashMap<String, Integer> wordCount : tf.values()) {
                 if (wordCount.containsKey(word)) {
-                    count++;
+                    docCount++;
                 }
             }
-            idf.put(word, (float) Math.log((float) tf.size() + 1 / count + 1));
+
+            if (totalDocs > 1) {
+                idf.put(word, (float) Math.log((double) (totalDocs + 1) / (docCount + 1)));
+            } else {
+                idf.put(word, 0.1f);
+            }
         }
     }
 
