@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
@@ -127,7 +128,22 @@ public class Menu {
             float score = tfidf.calculateTFIDF(document.getObjectId("_id"), words);
             sentenceScores.put(sentence, score);
         }
+        // Sort sentences by score
+        List<Map.Entry<String, Float>> sortedSentences = sentenceScores.entrySet().stream()
+                .sorted((a, b) -> Float.compare(b.getValue(), a.getValue()))
+                .collect(Collectors.toList());
 
+        // Select top sentences for the summary
+        int maxSentences = 3; 
+        StringBuilder summary = new StringBuilder();
+        for (int i = 0; i < Math.min(maxSentences, sortedSentences.size()); i++) {
+            summary.append(sortedSentences.get(i).getKey()).append(" ");
+        }
+
+        System.out.println("\nGenerated Sentence-Based Summary for '" + title + "':");
+        System.out.println(summary.toString().trim());
+    }
+}
         
 
 
