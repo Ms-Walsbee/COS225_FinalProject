@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import org.bson.BsonValue;
+import org.bson.types.ObjectId;
+
 
 public class TFIDF {
 
@@ -58,16 +60,27 @@ public class TFIDF {
         return wordCount.get(word) * idf.get(word);
     }
 
-    public float calculateTFIDF(BsonValue id, String[] words) {
+    public float calculateTFIDF(ObjectId id, String word) {
+        if (!tf.containsKey(id) || !idf.containsKey(word)) {
+            return 0;
+        }
+
+        HashMap<String, Integer> wordCount = tf.get(id);
+        if (!wordCount.containsKey(word)) {
+            return 0;
+        }
+
+        int termFrequency = wordCount.get(word);
+        float idfValue = idf.get(word);
+
+        return termFrequency * idfValue;
+    }
+
+    public float calculateTFIDF(ObjectId id, String[] words) {
         float score = 0;
         for (String word : words) {
             score += calculateTFIDF(id, word);
         }
         return score;
     }
-
-    public ArrayList<BsonValue> getIds() {
-        return new ArrayList<>(tf.keySet());
-    }
-
 }
