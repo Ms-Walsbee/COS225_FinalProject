@@ -94,7 +94,34 @@ public class Menu {
         }
 
     }
+    public void generateSentenceSummary(Scanner scanner) {
+        System.out.print("Please enter the title of the document to generate a summary: ");
+        String title = scanner.nextLine();
+        
+            // Retrieve the document by title
+    List<org.bson.Document> docs = docDatabaseManager.getDocumentsByTitle(title);
 
+    if (docs.isEmpty()) {
+        System.out.println("\nNo document found with the title: " + title);
+    } else {
+        org.bson.Document document = docs.get(0);
+        String overview = document.getString("overview");
+
+        // Initialize TextProcessor and TFIDF
+        TextProcessor textProcessor = new TextProcessor();
+        TFIDF tfidf = new TFIDF(textProcessor);
+
+
+
+
+
+
+
+
+
+
+
+        
 
     public void retrieveSummaryByTitle(Scanner scanner) {
         System.out.print("Please enter the title of the document: ");
