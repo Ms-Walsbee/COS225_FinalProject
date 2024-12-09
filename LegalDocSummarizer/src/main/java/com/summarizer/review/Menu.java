@@ -9,7 +9,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.bson.Document;
 
 public class Menu {
@@ -111,17 +114,31 @@ public class Menu {
         TextProcessor textProcessor = new TextProcessor();
         TFIDF tfidf = new TFIDF(textProcessor);
 
+        String[] sentences = overview.split("(?<=[.!?])\\s+"); // Split by sentence boundaries
+        String cleanedOverview = textProcessor.cleanText(overview);
+        tfidf.addSample(document.getObjectId("_id"), cleanedOverview);
+        tfidf.calculateIDF();
 
-
-
-
-
-
-
-
-
+        // Score sentences
+        Map<String, Float> sentenceScores = new HashMap<>();
+        for (String sentence : sentences) {
+            String cleanedSentence = textProcessor.cleanText(sentence);
+            String[] words = cleanedSentence.split("\\s+");
+            float score = tfidf.calculateTFIDF(document.getObjectId("_id"), words);
+            sentenceScores.put(sentence, score);
+        }
 
         
+
+
+
+
+
+
+
+
+
+
 
     public void retrieveSummaryByTitle(Scanner scanner) {
         System.out.print("Please enter the title of the document: ");
