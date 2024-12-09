@@ -306,9 +306,9 @@ public class Menu {
                     System.out.println("\u001B[33mAdding document....\33[0m");
                     menu.addDocumentToDatabase(scanner);
                     break;
-                case 2:
-                    System.out.println("Generating summary of the document....");
-                    menu.generateSummary(scanner);
+                    case 2:
+                    System.out.println("Generating sentence-based summary of the document...");
+                    menu.generateSentenceSummary(scanner);
                     break;
                 case 3:
                     System.out.println("Retrieving past summary from the database by title....");
