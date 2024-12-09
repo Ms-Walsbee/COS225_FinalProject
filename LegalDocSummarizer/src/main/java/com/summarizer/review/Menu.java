@@ -8,8 +8,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.bson.Document;
 
 public class Menu {
@@ -94,8 +98,7 @@ public class Menu {
         }
 
     }
-
-public void generateSummary(Scanner scanner) {
+public void generateSentenceSummary(Scanner scanner) {
     System.out.print("Please enter the title of the document to generate a summary: ");
     String title = scanner.nextLine();
 
@@ -105,37 +108,42 @@ public void generateSummary(Scanner scanner) {
     if (docs.isEmpty()) {
         System.out.println("\nNo document found with the title: " + title);
     } else {
-        // Assuming there's only one document with the given title
-        Document document = docs.get(0);
+        org.bson.Document document = docs.get(0);
         String overview = document.getString("overview");
 
         // Initialize TextProcessor and TFIDF
         TextProcessor textProcessor = new TextProcessor();
         TFIDF tfidf = new TFIDF(textProcessor);
 
-        // Clean and process the text
-        String cleanedText = textProcessor.cleanText(overview);
-
-        // Add the document to TFIDF
-        org.bson.types.ObjectId docId = document.getObjectId("_id");
-        tfidf.addSample(docId, cleanedText);
-
-        // Calculate IDF for the vocabulary
-        // hope this works
+        String[] sentences = overview.split("(?<=[.!?])\\s+"); // Split by sentence boundaries
+        String cleanedOverview = textProcessor.cleanText(overview);
+        tfidf.addSample(document.getObjectId("_id"), cleanedOverview);
         tfidf.calculateIDF();
 
-        // Generate a summary based on TF-IDF scores
-        String[] words = cleanedText.split("\\s+");
-        StringBuilder summary = new StringBuilder();
-        for (String word : words) {
-            float score = tfidf.calculateTFIDF(docId, word);
-            if (score > 0.1) { 
-                summary.append(word).append(" ");
-            }
+        // Score sentences
+        Map<String, Float> sentenceScores = new HashMap<>();
+        for (String sentence : sentences) {
+            String cleanedSentence = textProcessor.cleanText(sentence);
+            String[] words = cleanedSentence.split("\\s+");
+            float score = tfidf.calculateTFIDF(document.getObjectId("_id"), words);
+            sentenceScores.put(sentence, score);
         }
-        System.out.println("\nGenerated Summary for '" + title + "':");
+        // Sort sentences by score
+        List<Map.Entry<String, Float>> sortedSentences = sentenceScores.entrySet().stream()
+                .sorted((a, b) -> Float.compare(b.getValue(), a.getValue()))
+                .collect(Collectors.toList());
+
+        // Select top sentences for the summary
+        int maxSentences = 3; 
+        StringBuilder summary = new StringBuilder();
+        for (int i = 0; i < Math.min(maxSentences, sortedSentences.size()); i++) {
+            summary.append(sortedSentences.get(i).getKey()).append(" ");
+        }
+
+        System.out.println("\nGenerated Sentence-Based Summary for '" + title + "':");
         System.out.println(summary.toString().trim());
     }
+}
 
     public void retrieveSummaryByTitle(Scanner scanner) {
         System.out.print("Please enter the title of the document: ");
@@ -285,9 +293,9 @@ public void generateSummary(Scanner scanner) {
                     System.out.println("\u001B[33mAdding document....\33[0m");
                     menu.addDocumentToDatabase(scanner);
                     break;
-                case 2:
-                    System.out.println("Generating summary of the document....");
-                    menu.generateSummary(scanner);
+                    case 2:
+                    System.out.println("Generating sentence-based summary of the document...");
+                    menu.generateSentenceSummary(scanner);
                     break;
                 case 3:
                     System.out.println("Retrieving past summary from the database by title....");
