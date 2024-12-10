@@ -32,7 +32,7 @@ public class Menu {
         databaseManager.createCollection();
 
         // Parse documentsMetaData.csv
-        String csvFile = "src/main/resources/documentsMetaData1.csv"; // this is a smaller document, we need to use te
+        String csvFile = "src/main/resources/documentsMetaData2.csv"; // this is a smaller document, we need to use te
                                                                       // larger file after we figure out how to stop
                                                                       // adding all the documents to the database first
         String line;
@@ -103,16 +103,17 @@ public class Menu {
         System.out.print("Please enter the title of the document to generate a summary: ");
         String title = scanner.nextLine();
 
-        // Retrieve the document by title from doc_data
+        // Retrieve the document by title from doc_data and documents
         List<Document> docs = databaseManager.getDocumentsByTitle(title);
         List<Document> docFromDocData = docDatabaseManager.getDocumentsByTitle(title);
         List<Document> allDocs = new ArrayList<>();
         allDocs.addAll(docFromDocData);
+        allDocs.addAll(docs);
 
-        if (docs.isEmpty()) {
+        if (allDocs.isEmpty()) {
             System.out.println("\nNo document found with the title: " + title);
         } else {
-            org.bson.Document document = docs.get(0);
+            org.bson.Document document = allDocs.get(0);
             String overview = document.getString("overview");
 
             // Initialize TextProcessor and TFIDF
