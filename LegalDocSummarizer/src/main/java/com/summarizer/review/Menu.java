@@ -1,8 +1,6 @@
 package com.summarizer.review;
 
 import com.mongodb.client.result.InsertOneResult;
-// import com.summarizer.review.DatabaseManager;
-// import com.summarizer.review.DocumentUploader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,15 +14,35 @@ import java.util.HashMap;
 
 import org.bson.Document;
 
+/**
+ * This Menu class is used as the main interface for managing the Legal Document
+ * Summaries in MongoDB. It includes methods for document interaction like
+ * uploading, summarizing and querying documents.
+ *
+ */
+
 public class Menu {
     private DatabaseManager databaseManager;
     private DatabaseManager docDatabaseManager;
 
+    /**
+     * This constructs a new Menu instance with DatabaseManager, it initializes
+     * database managers for two collections.
+     * -"documents" for storing document metadata from the group.
+     * -"doc_data" for storing detailed information about a document from the user
+     * input.
+     */
     public Menu() {
         this.databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
         this.docDatabaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
 
     }
+
+    /**
+     * This method is called before showing menu options.
+     * It creates a new collection in MongoDB called documents and parses
+     * information from the .csv file.
+     */
 
     public void startUp() {
         // Create a collection in the database to store objects
@@ -32,22 +50,17 @@ public class Menu {
         databaseManager.createCollection();
 
         // Parse documentsMetaData.csv
-        String csvFile = "src/main/resources/documentsMetaData2.csv"; // this is a smaller document, we need to use te
-                                                                      // larger file after we figure out how to stop
-                                                                      // adding all the documents to the database first
+        String csvFile = "src/main/resources/documentsMetaData2.csv"; // use metadata1.csv for quicker testing purposes.
         String line;
         String delimiter = "#";
         // Parse the documents
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(delimiter);
-                // Float id = Float.parseFloat(values[values.length - 5]);
                 String title = values[1];
                 String authors = values[2];
                 String overview = values[3];
                 String categories = values[4];
-
-                // Add more values to the reader.
 
                 // upload document to database
                 DocumentUploader documentUploader = new DocumentUploader(title, authors, overview, categories);
@@ -58,12 +71,29 @@ public class Menu {
         }
     }
 
+    /**
+     * This method is called when the user wants to exit the application.
+     * It will delete both collections and entire database.
+     */
     public void shutDown() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
         databaseManager.deleteCollection();
         DatabaseManager databaseManager2 = new DatabaseManager("LegalDocSummarizer", "doc_data");
         databaseManager2.deleteCollection();
     }
+
+    /**
+     * When the user inputs 1, it adds douments to the MongoDB database under
+     * "doc_data" collection.
+     * It collects:
+     * -Document title
+     * -Author Names
+     * -Overview (summary)
+     * -Category
+     * If failure, prints the error message.
+     * 
+     * @param Scanner scanner object for reading user input
+     */
 
     public void addDocumentToDatabase(Scanner scanner) {
 
@@ -98,6 +128,17 @@ public class Menu {
         }
 
     }
+
+    /**
+     * When the user inputs 2, it retrieves documents by title from the MongoDB
+     * "documents" and "doc_data" collections.
+     * It processes the documents "overview" (summary) using TF-IDF for sentence
+     * scoring.
+     * Then selects top scoring sentences to construct a summary on a 2 maxSentence
+     * basis (can be increased).
+     * 
+     * @param Scanner scanner object for reading user input
+     */
 
     public void generateSentenceSummary(Scanner scanner) {
         System.out.print("Please enter the title of the document to generate a summary: ");
@@ -150,6 +191,13 @@ public class Menu {
         }
     }
 
+    /**
+     * Retrieves and displays summaries of documents based on title from both
+     * "doc_data" and "documents".
+     * 
+     * @param Scanner scanner object for reading user input
+     */
+
     public void retrieveSummaryByTitle(Scanner scanner) {
         System.out.print("Please enter the title of the document: ");
         String title = scanner.nextLine();
@@ -174,6 +222,13 @@ public class Menu {
             }
         }
     }
+
+    /**
+     * Retrieves and displays summaries of documents based on author from both
+     * collections "doc_data" and "documents".
+     * 
+     * @param Scanner scanner object for reading user input
+     */
 
     public void retrieveSummaryByAuthor(Scanner scanner) {
         System.out.print("Please enter the author of the document: ");
@@ -201,7 +256,11 @@ public class Menu {
         }
     }
 
-    // Displays the summary of a document from mongoDB
+    /**
+     * This method displays the summaries of all the documents the user submits
+     * into "doc_data" collection does not generate.
+     * This shows both the title and the summary.
+     */
     private static void displaySummary() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
 
@@ -221,7 +280,12 @@ public class Menu {
         }
     }
 
-    // Gets the authors from mongoDG and displays them
+    /**
+     * This method displays the authors of all the documents the user submits into
+     * "doc_data" collection.
+     * This shows both the title and the authors of all documents submitted by the
+     * user.
+     */
     private static void displayAuthors() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
 
@@ -241,7 +305,12 @@ public class Menu {
         }
     }
 
-    // Gets the categories from mongoDB and displays them
+    /**
+     * This method displays the categories of all the documents the user submits
+     * into "doc_data" collection. (only displays, does not generates summary)
+     * This shows just the categories of all the documents.
+     * To do: Implement search by categories.
+     */
     private static void displayCategories() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
 
@@ -259,6 +328,18 @@ public class Menu {
         }
     }
 
+    /**
+     * The main method to run the Legal Doc Summarizer application with color to
+     * display whats user input and what information is code input.
+     * It presents a menu to the user and allows interaction with the application
+     * with options like:
+     * -Uploading Documents
+     * -Generating Documents
+     * -Displaying Document Information
+     * -Exiting the application
+     * 
+     * @param args The command line arguments
+     */
     public static void main(String[] args) {
         System.out.println("\033[0;36mStarting the Legal Doc Summarizer.\033[0m");
         Menu menu = new Menu();
