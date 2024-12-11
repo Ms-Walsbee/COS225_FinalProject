@@ -50,7 +50,7 @@ public class Menu {
         databaseManager.createCollection();
 
         // Parse documentsMetaData.csv
-        String csvFile = "src/main/resources/documentsMetaData2.csv"; // use metadata1.csv for quicker testing purposes.
+        String csvFile = "src/main/resources/documentsMetaData1.csv"; // use metadata1.csv for quicker testing purposes.
         String line;
         String delimiter = "#";
         // Parse the documents
@@ -148,14 +148,18 @@ public class Menu {
         List<Document> docs = databaseManager.getDocumentsByTitle(title);
         List<Document> docFromDocData = docDatabaseManager.getDocumentsByTitle(title);
         List<Document> allDocs = new ArrayList<>();
-        allDocs.addAll(docFromDocData);
         allDocs.addAll(docs);
+        allDocs.addAll(docFromDocData);
 
         if (allDocs.isEmpty()) {
             System.out.println("\nNo document found with the title: " + title);
         } else {
-            org.bson.Document document = allDocs.get(0);
+            Document document = allDocs.get(0);
+
+            String documentTitle = document.getString("title");
+            String authors = document.getString("authors");
             String overview = document.getString("overview");
+            String categories = document.getString("categories");
 
             // Initialize TextProcessor and TFIDF
             TextProcessor textProcessor = new TextProcessor();
@@ -186,8 +190,11 @@ public class Menu {
                 summary.append(sortedSentences.get(i).getKey()).append(" ");
             }
 
-            System.out.println("\nGenerated Sentence-Based Summary for '" + title + "':");
-            System.out.println(summary.toString().trim());
+            System.out.println("\n\u001B[33mGenerated Sentence-Based Summary for:\033[0m '" + documentTitle
+                    + "'\u001B[33m.\033[0m");
+            System.out.println("\n\u001B[33mBy author(s):\033[0m '" + authors + "'\u001B[33m.\033[0m");
+            System.out.println("\n\u001B[33mAnd by category(s):\033[0m '" + categories + "'\u001B[33m.\033[0m\n");
+            System.out.println("\u001B[33mGenerated summary:\033[0m " + summary.toString().trim() + "\n");
         }
     }
 
@@ -215,9 +222,9 @@ public class Menu {
                 String authors = document.getString("authors");
                 String titleFromDoc = document.getString("title");
 
-                System.out.println(
-                        "\nSummary for title '" + titleFromDoc + "' by the author(s) '" + authors + "':"
-                                + document.getString("overview"));
+                System.out.println("\n\u001B[33mFull summary for title:\033[0m '" + titleFromDoc + "'.\033[0m");
+                System.out.println("\n\u001B[33mBy the author(s):\033[0m '" + authors + "'.\033[0m");
+                System.out.println("\n\u001B[33mFull summary:\033[0m " + document.getString("overview"));
                 System.out.println();
             }
         }
@@ -247,9 +254,13 @@ public class Menu {
                 String title = doc.getString("title");
                 String authorFromDoc = doc.getString("authors");
 
-                System.out.println(
-                        "\nSummary for author '" + authorFromDoc + "' from the document titled '" + title + "':"
-                                + doc.getString("overview"));
+                System.out.println("\n\u001B[33mFull summary for title:\033[0m '" + title + "'.\033[0m");
+                System.out.println("\n\u001B[33mBy the author(s):\033[0m '" + authorFromDoc + "'.\033[0m");
+                System.out.println("\n\u001B[33mFull summary:\033[0m " + doc.getString("overview"));
+                // System.out.println(
+                // "\nSummary for author '" + authorFromDoc + "' from the document titled '" +
+                // title + "':"
+                // + doc.getString("overview"));
                 System.out.println();
             }
 
@@ -346,7 +357,7 @@ public class Menu {
         menu.startUp();
 
         System.out.println("\n");
-        System.out.println("\u001B[32mHello! Welcome to the Summarizer!");
+        System.out.println("\u001B[32mHello! Welcome to the Summarizer!\033[0m");
 
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
@@ -376,31 +387,31 @@ public class Menu {
             }
             switch (choice) {
                 case 1:
-                    System.out.println("\u001B[33mAdding document....\33[0m");
+                    System.out.println("\u001B[32mAdding document....\33[0m");
                     menu.addDocumentToDatabase(scanner);
                     break;
                 case 2:
-                    System.out.println("Generating sentence-based summary of the document...");
+                    System.out.println("\u001B[32mGenerating sentence-based summary of the document...\033[0m");
                     menu.generateSentenceSummary(scanner);
                     break;
                 case 3:
-                    System.out.println("Retrieving past summary from the database by title....");
+                    System.out.println("\u001B[32mRetrieving documents from the database by title....\033[0m");
                     menu.retrieveSummaryByTitle(scanner);
                     break;
                 case 4:
-                    System.out.println("Retrieving past summary from the database by author....");
+                    System.out.println("\u001B[32mRetrieving past summary from the database by author....\033[0m");
                     menu.retrieveSummaryByAuthor(scanner);
                     break;
                 case 5:
-                    System.out.println("Displaying summarization....");
+                    System.out.println("\u001B[32mDisplaying summarization....\033[0m");
                     displaySummary();
                     break;
                 case 6:
-                    System.out.println("Displaying authors....");
+                    System.out.println("\u001B[32mDisplaying authors....\033[0m");
                     displayAuthors();
                     break;
                 case 7:
-                    System.out.println("Displaying categories....");
+                    System.out.println("\u001B[32mDisplaying categories....\033[0m");
                     displayCategories();
                     break;
                 case 8:
