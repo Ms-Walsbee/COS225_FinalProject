@@ -14,13 +14,23 @@ import java.util.HashMap;
 
 import org.bson.Document;
 
+/**
+ * This Menu class is used as the main interface for managing the Legal Document
+ * Summaries in MongoDB. It includes methods for document interaction like
+ * uploading, summarizing and querying documents.
+ *
+ */
+
 public class Menu {
     private DatabaseManager databaseManager;
     private DatabaseManager docDatabaseManager;
 
     /**
-     * This constructs a new Menu with DatabaseManager instances for managing
-     * documents and doc_date (user submitted documents)
+     * This constructs a new Menu instance with DatabaseManager, it initializes
+     * database managers for two collections.
+     * -"documents" for storing document metadata from the group.
+     * -"doc_data" for storing detailed information about a document from the user
+     * input.
      */
     public Menu() {
         this.databaseManager = new DatabaseManager("LegalDocSummarizer", "documents");
@@ -75,6 +85,11 @@ public class Menu {
     /**
      * When the user inputs 1, it adds douments to the MongoDB database under
      * "doc_data" collection.
+     * It collects:
+     * -Document title
+     * -Author Names
+     * -Overview (summary)
+     * -Category
      * If failure, prints the error message.
      * 
      * @param Scanner scanner object for reading user input
@@ -243,7 +258,7 @@ public class Menu {
 
     /**
      * This method displays the summaries of all the documents the user submits
-     * (does not generate summary) into "doc_data" collection.
+     * into "doc_data" collection does not generate.
      * This shows both the title and the summary.
      */
     private static void displaySummary() {
@@ -290,7 +305,12 @@ public class Menu {
         }
     }
 
-    // Gets the categories from mongoDB and displays them
+    /**
+     * This method displays the categories of all the documents the user submits
+     * into "doc_data" collection. (only displays, does not generates summary)
+     * This shows just the categories of all the documents.
+     * To do: Implement search by categories.
+     */
     private static void displayCategories() {
         DatabaseManager databaseManager = new DatabaseManager("LegalDocSummarizer", "doc_data");
 
@@ -308,6 +328,18 @@ public class Menu {
         }
     }
 
+    /**
+     * The main method to run the Legal Doc Summarizer application with color to
+     * display whats user input and what information is code input.
+     * It presents a menu to the user and allows interaction with the application
+     * with options like:
+     * -Uploading Documents
+     * -Generating Documents
+     * -Displaying Document Information
+     * -Exiting the application
+     * 
+     * @param args The command line arguments
+     */
     public static void main(String[] args) {
         System.out.println("\033[0;36mStarting the Legal Doc Summarizer.\033[0m");
         Menu menu = new Menu();
