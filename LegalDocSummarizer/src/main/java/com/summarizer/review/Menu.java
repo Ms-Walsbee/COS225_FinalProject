@@ -190,11 +190,12 @@ public class Menu {
                 summary.append(sortedSentences.get(i).getKey()).append(" ");
             }
 
-            System.out.println("\n\u001B[33mGenerated Sentence-Based Summary for:\033[0m '" + documentTitle
+            System.out.println("\n\u001B[33mGenerating Summary for Title:\033[0m '" + documentTitle
                     + "'\u001B[33m.\033[0m");
             System.out.println("\n\u001B[33mBy author(s):\033[0m '" + authors + "'\u001B[33m.\033[0m");
             System.out.println("\n\u001B[33mAnd by category(s):\033[0m '" + categories + "'\u001B[33m.\033[0m\n");
-            System.out.println("\u001B[33mGenerated summary:\033[0m " + summary.toString().trim() + "\n");
+            System.out
+                    .println("\u001B[33mGenerated Sentence-Based Summary:\033[0m " + summary.toString().trim() + "\n");
         }
     }
 
