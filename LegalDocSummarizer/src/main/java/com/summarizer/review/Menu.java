@@ -16,8 +16,9 @@ import org.bson.Document;
 
 /**
  * This Menu class is used as the main interface for managing the Legal Document
- * Summaries in MongoDB. It includes methods for document interaction like
- * uploading, summarizing and querying documents.
+ * Summaries in MongoDB.
+ * It includes methods for document interaction like uploading, summarizing and
+ * querying documents.
  *
  */
 
@@ -121,7 +122,6 @@ public class Menu {
                 System.out.println("\u001B[32mDocument successfully added to the database.\033[0m\n");
             } else {
                 System.out.println("Failed to add the document to the database.");
-                //
             }
         } catch (Exception e) {
             System.err.println("An error occurred while adding the document to the database: " + e.getMessage());
@@ -135,7 +135,7 @@ public class Menu {
      * It processes the documents "overview" (summary) using TF-IDF for sentence
      * scoring.
      * Then selects top scoring sentences to construct a summary on a 2 maxSentence
-     * basis (can be increased).
+     * basis.
      * 
      * @param Scanner scanner object for reading user input
      */
@@ -201,7 +201,7 @@ public class Menu {
 
     /**
      * Retrieves and displays summaries of documents based on title from both
-     * "doc_data" and "documents".
+     * "doc_data" and "documents" collection.
      * 
      * @param Scanner scanner object for reading user input
      */
@@ -233,7 +233,7 @@ public class Menu {
 
     /**
      * Retrieves and displays summaries of documents based on author from both
-     * collections "doc_data" and "documents".
+     * collections "doc_data" and "documents" collection.
      * 
      * @param Scanner scanner object for reading user input
      */
@@ -258,10 +258,6 @@ public class Menu {
                 System.out.println("\n\u001B[33mFull summary for title:\033[0m '" + title + "'.\033[0m");
                 System.out.println("\n\u001B[33mBy the author(s):\033[0m '" + authorFromDoc + "'.\033[0m");
                 System.out.println("\n\u001B[33mFull summary:\033[0m " + doc.getString("overview"));
-                // System.out.println(
-                // "\nSummary for author '" + authorFromDoc + "' from the document titled '" +
-                // title + "':"
-                // + doc.getString("overview"));
                 System.out.println();
             }
 
@@ -348,7 +344,8 @@ public class Menu {
      * -Uploading Documents
      * -Generating Documents
      * -Displaying Document Information
-     * -Exiting the application
+     * -Exiting the application, uses a shutdown method to delete the data
+     * collections in MongoDB
      * 
      * @param args The command line arguments
      */
