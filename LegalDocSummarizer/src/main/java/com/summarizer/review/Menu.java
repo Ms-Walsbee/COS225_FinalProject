@@ -51,7 +51,7 @@ public class Menu {
         databaseManager.createCollection();
 
         // Parse documentsMetaData.csv
-        String csvFile = "src/main/resources/documentsMetaData1.csv"; // use metadata1.csv for quicker testing purposes.
+        String csvFile = "src/main/resources/documentsMetaData3.csv"; // use metadata1.csv for quicker testing purposes.
         String line;
         String delimiter = "#";
         // Parse the documents
@@ -98,16 +98,16 @@ public class Menu {
 
     public void addDocumentToDatabase(Scanner scanner) {
 
-        System.out.print("Please enter the name of the document: ");
+        System.out.print("\u001B[33mPlease enter the name of the document:\033[0m ");
         String docTitle = scanner.nextLine();
 
-        System.out.print("Please enter the authors of the document: ");
+        System.out.print("\u001B[33mPlease enter the authors of the document:\033[0m ");
         String docAuthors = scanner.nextLine();
 
-        System.out.print("Please enter the overview of the document: ");
+        System.out.print("\u001B[33mPlease enter the overview of the document:\033[0m ");
         String docOverview = scanner.nextLine();
 
-        System.out.print("Please enter the category of the document: ");
+        System.out.print("\u001B[33mPlease enter the category of the document:\033[0m ");
         String docCategories = scanner.nextLine();
 
         DocumentUploader documentUploader = new DocumentUploader(docTitle, docAuthors, docOverview, docCategories);
@@ -141,7 +141,7 @@ public class Menu {
      */
 
     public void generateSentenceSummary(Scanner scanner) {
-        System.out.print("Please enter the title of the document to generate a summary: ");
+        System.out.print("\u001B[33mPlease enter the title of the document to generate a summary:\033[0m ");
         String title = scanner.nextLine();
 
         // Retrieve the document by title from doc_data and documents
@@ -152,7 +152,7 @@ public class Menu {
         allDocs.addAll(docFromDocData);
 
         if (allDocs.isEmpty()) {
-            System.out.println("\nNo document found with the title: " + title);
+            System.out.println("\nNo document found with the title: " + title + "\n");
         } else {
             Document document = allDocs.get(0);
 
@@ -190,12 +190,12 @@ public class Menu {
                 summary.append(sortedSentences.get(i).getKey()).append(" ");
             }
 
-            System.out.println("\n\u001B[33mGenerating Summary for Title:\033[0m '" + documentTitle
+            System.out.println("\n\u001B[33mGenerating summary for title:\033[0m '" + documentTitle
                     + "'\u001B[33m.\033[0m");
             System.out.println("\n\u001B[33mBy author(s):\033[0m '" + authors + "'\u001B[33m.\033[0m");
             System.out.println("\n\u001B[33mAnd by category(s):\033[0m '" + categories + "'\u001B[33m.\033[0m\n");
             System.out
-                    .println("\u001B[33mGenerated Sentence-Based Summary:\033[0m " + summary.toString().trim() + "\n");
+                    .println("\u001B[33mGenerated sentence-based summary:\033[0m " + summary.toString().trim() + "\n");
         }
     }
 
@@ -207,7 +207,7 @@ public class Menu {
      */
 
     public void retrieveSummaryByTitle(Scanner scanner) {
-        System.out.print("Please enter the title of the document: ");
+        System.out.print("\u001B[33mPlease enter the title of the document:\033[0m ");
         String title = scanner.nextLine();
         List<Document> docs = databaseManager.getDocumentsByTitle(title);
         List<Document> docFromDocData = docDatabaseManager.getDocumentsByTitle(title);
@@ -239,7 +239,7 @@ public class Menu {
      */
 
     public void retrieveSummaryByAuthor(Scanner scanner) {
-        System.out.print("Please enter the author of the document: ");
+        System.out.print("\u001B[33mPlease enter the author of the document:\033[0m ");
         String authors = scanner.nextLine();
         List<Document> docs = databaseManager.getDocumentsByAuthor(authors);
         List<Document> docFromDocData = docDatabaseManager.getDocumentsByAuthor(authors);
@@ -278,12 +278,12 @@ public class Menu {
         if (documents.isEmpty()) {
             System.out.println("\nNo summaries available in the database.");
         } else {
-            System.out.println("\nSummaries of all documents in the database:");
+            System.out.println("\n\u001B[33mSummaries of all documents in the user database:\033[0m");
             for (Document doc : documents) {
                 String title = doc.getString("title");
                 String overview = doc.getString("overview");
-                System.out.println("\nTitle: " + title);
-                System.out.println("Summary: " + overview);
+                System.out.println("\n\u001B[33mTitle:\033[0m " + title);
+                System.out.println("\u001B[33mSummary:\033[0m " + overview + "\n");
             }
         }
     }
@@ -303,12 +303,12 @@ public class Menu {
         if (documents.isEmpty()) {
             System.out.println("\nNo authors available in the database.");
         } else {
-            System.out.println("\nAuthors of all documents in the database:");
+            System.out.println("\n\u001B[33mAuthors of all documents in the user database:\033[0m");
             for (Document doc : documents) {
                 String title = doc.getString("title");
                 String authors = doc.getString("authors");
-                System.out.println("\nTitle: " + title);
-                System.out.println("Authors: " + authors);
+                System.out.println("\n\u001B[33mTitle:\033[0m " + title);
+                System.out.println("\u001B[33mAuthors:\033[0m " + authors + "\n");
             }
         }
     }
@@ -328,10 +328,11 @@ public class Menu {
         if (documents.isEmpty()) {
             System.out.println("\nNo categories available in the database.");
         } else {
-            System.out.println("\nCategories of all documents in the database:");
+            System.out.println("\n\u001B[33mCategories of all documents in the user database:\033[0m");
             for (Document doc : documents) {
                 String categories = doc.getString("categories");
-                System.out.println("Categories: " + categories);
+                System.out.println("\n\u001B[33mCategories:\033[0m " + categories);
+                System.out.println();
             }
         }
     }
@@ -372,7 +373,7 @@ public class Menu {
             System.out.println("7. Display categories of user submitted documents.");
             System.out.println("8. Exit.");
 
-            System.out.print("Enter your choice: \033[0m");
+            System.out.print("\u001B[33mEnter your choice: \033[0m");
 
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
@@ -401,11 +402,11 @@ public class Menu {
                     menu.retrieveSummaryByAuthor(scanner);
                     break;
                 case 5:
-                    System.out.println("\u001B[32mDisplaying summarization....\033[0m");
+                    System.out.println("\u001B[32mDisplaying titles and summaries....\033[0m");
                     displaySummary();
                     break;
                 case 6:
-                    System.out.println("\u001B[32mDisplaying authors....\033[0m");
+                    System.out.println("\u001B[32mDisplaying titles and authors....\033[0m");
                     displayAuthors();
                     break;
                 case 7:
