@@ -3,7 +3,6 @@ package com.summarizer.review;
 import java.util.Date;
 
 /**
- * Represents a document with summaries and associated metadata.
  * This class contains information such as the summaries, user summaries,
  * last update time, and document ID. The {@code Document} class is designed to store both 
  * system-generated summaries, typically representing the main content or analysis of the 
